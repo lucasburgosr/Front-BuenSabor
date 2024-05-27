@@ -4,6 +4,7 @@ import Inicio from "../screens/inicio/Inicio";
 import Manufacturados from "../screens/manufacturados/Manufacturados";
 import Empresa from "../screens/empresas/Empresas";
 import Insumo from "../screens/insumos/Insumos";
+import UnidadMedida from "../screens/UnidadMedida/UnidadMedidaForm";
 import Categoria from "../screens/categorias/Categorias";
 /* import Clientes from "../screens/clientes/Clientes"; */
 import Promocion from "../screens/promociones/Promociones";
@@ -34,6 +35,8 @@ const AppRouter: React.FC = () => {
             {/* <Route path="/empresas/clientes/:idEmpresa" element={<Clientes />} /> */}
             <Route path="/empresas/promociones/:idEmpresa" element={<Promocion />} />
             <Route path="/sucursales/empresas/:idEmpresa" element={<Sucursales />} />
+            <Route path="/UnidadMedida" element={<UnidadMedida />} />
+            {/* <Route path="/empleados" element={<Empleado />} /> */}
           </Routes>
         </div>
       </div>
