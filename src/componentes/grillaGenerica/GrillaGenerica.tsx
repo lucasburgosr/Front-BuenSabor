@@ -9,7 +9,7 @@ import useGrillaHandlers from "./useGrillaHandler";
 import ModalGenerico from "../modalGenerico/ModalGenerico";
 import GrillaGenericaTable from "./GrillaGenericaTable";
 import { useDomicilios } from "../../hooks/useDomicilios";
-import { Button } from "@mui/material";
+import { Box,Button,TablePagination,TextField } from "@mui/material";
 
 import { Add } from "@mui/icons-material";
 type ListArgs<T extends Base> = {
@@ -21,13 +21,14 @@ type ListArgs<T extends Base> = {
   sinEditar?: boolean
 }
 
+
 function GrillaGenerica<T extends Base>({ entidadPrevia, entidadBase, apiServicio, listaSelects = {}, sinNuevo = false, sinEditar = false }: ListArgs<T>) {
   const [entidad, setEntidad] = useState<T>(entidadPrevia);
   const [entidades, setEntidades] = useState<T[]>([]);
   const { categorias } = useAtributos();
   const [categoria, setCategoria] = useState<number>(0);
   const [labels, setLabels] = useState<string[]>([]);
-
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const { modalPedidos, openModalPedidos } = usePedidos();
   const { modalDomicilios, openModalDomicilios } = useDomicilios();
   const modalRef = useRef<any>(null);
@@ -45,6 +46,9 @@ function GrillaGenerica<T extends Base>({ entidadPrevia, entidadBase, apiServici
     modalRef
   });
 
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
   useEffect(() => {
     getDatosRest();
   }, []);
@@ -53,17 +57,45 @@ function GrillaGenerica<T extends Base>({ entidadPrevia, entidadBase, apiServici
     setLabels((entidadBase as any).constructor.labels as string[]);
   }, [entidadBase]);
 
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const searchKey = (entidad as any).denominacion !== undefined ? 'denominacion' : 'nombre';
+
+  const filteredEntidades = entidades.filter((entidad) =>
+    (entidad as any)[searchKey].toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
-     
       <ModalGenerico titulo={(entidadBase as any).constructor.name} tituloModal={(entidadBase as any).constructor.nombre} ref={modalRef}>
         <FormularioGenerico data={entidad} onSubmit={save} listaSelects={listaSelects} />
       </ModalGenerico>
 
       {modalPedidos}
       {modalDomicilios}
-    
+
       <div style={{ height: '89vh', display: 'flex', flexDirection: 'column' }}>
+        <Box display="flex" justifyContent="flex-end" alignItems="center" mb={2}>
+          <TextField
+            label={`Buscar por ${searchKey}`}
+            variant="outlined"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            size="small"
+          />
+        </Box>
+
         {Object.keys(entidad).includes('categoria') && (
           <div className="row mb-3 ms-auto" style={{ width: '25%' }}>
             <div className="col">
@@ -80,7 +112,7 @@ function GrillaGenerica<T extends Base>({ entidadPrevia, entidadBase, apiServici
         )}
 
         <GrillaGenericaTable
-          entidades={entidades}
+          entidades={filteredEntidades.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)}
           labels={labels}
           categoria={categoria}
           keys={Object.keys(entidad) as Array<keyof T>}
@@ -92,25 +124,42 @@ function GrillaGenerica<T extends Base>({ entidadPrevia, entidadBase, apiServici
           sinEditar={sinEditar}
         />
 
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={filteredEntidades.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+
         {!sinNuevo && (
-          <Button
-            onClick={() => handleOpenModal(0)}
-            sx={{
-              bgcolor: "#a6c732",
-              "&:hover": {
-                bgcolor: "#a0b750",
-              },
-              my: 3,
-              mx: 1
-            }}
-            variant="contained"
-            startIcon={<Add />}
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
           >
-            Nuevo
-          </Button>
+            <Button
+              onClick={() => handleOpenModal(0)}
+              sx={{
+                bgcolor: "#a6c732",
+                "&:hover": {
+                  bgcolor: "#a0b750",
+                },
+                my: 3,
+                mx: 1,
+                width: 'auto',  // Asegura que el ancho sea automático
+                maxWidth: 200   // Limita el ancho máximo del botón
+              }}
+              variant="contained"
+              startIcon={<Add />}
+            >
+              Nuevo
+            </Button>
+          </Box>
         )}
       </div>
-      
     </>
   );
 }

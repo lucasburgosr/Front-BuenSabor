@@ -203,7 +203,7 @@ function GrillaGenericaTable<T extends Base>({
                           letterSpacing: "1px",
                           fontWeight: "bold",
                           backgroundColor: "#e05151",
-                          color: "#FFFFBF",
+                          
                         }}
                         className="custom-button"
                         variant="contained"

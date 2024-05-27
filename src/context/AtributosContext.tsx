@@ -5,7 +5,7 @@ import UnidadMedida from "../entidades/UnidadMedida";
 import UnidadMedidaService from "../servicios/UnidadMedidaService";
 import ModalGenerico from "../componentes/modalGenerico/ModalGenerico";
 import CategoriasForm from "../screens/categorias/CategoriasForm";
-import UnidadMedidaForm from "../componentes/unidadMedida/UnidadMedidaForm";
+import UnidadMedidaForm from "../screens/UnidadMedida/UnidadMedidaForm";
 import Sucursal from "../entidades/Sucursal";
 import SucursalService from "../servicios/SucursalService";
 import Empresa from "../entidades/Empresa";
