@@ -5,6 +5,7 @@ import BasePie from "./BasePie";
 //import BaseBar from "./BaseBar";
 import AllBar from "./AllBar";
 import * as React from 'react';
+import { useLocation, useParams } from "react-router-dom";
 
 // Contenido para las tarjetas de inicio
 const ProductoContent = {
@@ -34,6 +35,17 @@ const cardStyle = {
 //Renderización del componente
 //<img src="./logo/bienvenido.png" alt="Bienvenido" style={{ display: 'block', margin: 'auto', width: '200px', height: 'auto' }} />
 const Inicio: React.FC = () => {
+
+    const { idEmpresa } = useParams();
+
+  // Verifica si idEmpresa está disponible y es un número
+  if (idEmpresa) {
+    console.log('ID disponible:', idEmpresa);
+    // Utiliza el ID disponible para realizar operaciones
+  } else {
+    console.log('ID no disponible');
+  }
+
     return (
         <Box component="main" sx={{ flexGrow: 2, pl: 9, pt: 4, backgroundColor: '#f0f0f0' }}>
             <Container>

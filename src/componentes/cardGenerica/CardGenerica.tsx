@@ -11,16 +11,22 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
 type ListArgs<T extends Base> = {
-  entidadPrevia: T,
-  entidadBase: T,
-  apiServicio: BackendClient<T>,
-  listaSelects?: {},
-  sinNuevo?: boolean,
-  sinEditar?: boolean,
-  onSeleccionarEmpresa: (empresa: T) => void // Añadido para manejar la selección de la empresa
-}
+  entidadPrevia: T;
+  entidadBase: T;
+  apiServicio: BackendClient<T>;
+  listaSelects?: {};
+  sinNuevo?: boolean;
+  sinEditar?: boolean;
+};
 
-function CardGenerica<T extends Base>({ entidadPrevia, entidadBase, apiServicio, listaSelects = {}, sinNuevo = false, sinEditar = false, onSeleccionarEmpresa }: ListArgs<T>) {
+function CardGenerica<T extends Base>({
+  entidadPrevia,
+  entidadBase,
+  apiServicio,
+  listaSelects = {},
+  sinNuevo = false,
+  sinEditar = false,
+}: ListArgs<T>) {
   const [entidad, setEntidad] = useState<T>(entidadPrevia);
   const [entidades, setEntidades] = useState<T[]>([]);
   const [categoria, setCategoria] = useState<number>(0);
@@ -29,18 +35,19 @@ function CardGenerica<T extends Base>({ entidadPrevia, entidadBase, apiServicio,
   const { modalPedidos, openModalPedidos } = usePedidos();
   const modalRef = useRef<any>(null);
 
-  const { getDatosRest, deleteEntidad, save, handleOpenModal } = useGrillaHandlers({
-    entidad,
-    setEntidad,
-    entidades,
-    setEntidades,
-    apiServicio,
-    categoria,
-    setCategoria,
-    listaSelects,
-    entidadBase,
-    modalRef
-  });
+  const { getDatosRest, deleteEntidad, save, handleOpenModal } =
+    useGrillaHandlers({
+      entidad,
+      setEntidad,
+      entidades,
+      setEntidades,
+      apiServicio,
+      categoria,
+      setCategoria,
+      listaSelects,
+      entidadBase,
+      modalRef,
+    });
 
   useEffect(() => {
     getDatosRest();
@@ -50,31 +57,40 @@ function CardGenerica<T extends Base>({ entidadPrevia, entidadBase, apiServicio,
     setLabels((entidadBase as any).constructor.labels as string[]);
   }, [entidadBase]);
 
-  const handleCardClick = () => {
-    onSeleccionarEmpresa(entidad); // Llama a la función prop con la entidad actual
-  };
-
   return (
     <>
-      <ModalGenerico titulo={(entidadBase as any).constructor.name} tituloModal={(entidadBase as any).constructor.nombre} ref={modalRef}>
-        <FormularioGenerico data={entidad} onSubmit={save} listaSelects={listaSelects} />
+      <ModalGenerico
+        titulo={(entidadBase as any).constructor.name}
+        tituloModal={(entidadBase as any).constructor.nombre}
+        ref={modalRef}
+      >
+        <FormularioGenerico
+          data={entidad}
+          onSubmit={save}
+          listaSelects={listaSelects}
+        />
       </ModalGenerico>
 
       {modalPedidos}
 
-      <div style={{ height: '89vh', display: 'flex', flexDirection: 'column', alignItems: "center" }}>
-        <Link to="/inicio" style={{ textDecoration: "none", color: "inherit" }} onClick={handleCardClick}>
-          <CardGenericaCard
-            entidades={entidades}
-            labels={labels}
-            categoria={categoria}
-            keys={Object.keys(entidad) as Array<keyof T>}
-            openModalPedidos={openModalPedidos}
-            handleOpenModal={handleOpenModal}
-            deleteEntidad={deleteEntidad}
-            sinEditar={sinEditar}
-          />
-        </Link>
+      <div
+        style={{
+          height: "89vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <CardGenericaCard
+          entidades={entidades}
+          labels={labels}
+          categoria={categoria}
+          keys={Object.keys(entidad) as Array<keyof T>}
+          openModalPedidos={openModalPedidos}
+          handleOpenModal={handleOpenModal}
+          deleteEntidad={deleteEntidad}
+          sinEditar={sinEditar}
+        />
         {!sinNuevo && (
           <Button
             onClick={() => handleOpenModal(0)}
@@ -85,7 +101,7 @@ function CardGenerica<T extends Base>({ entidadPrevia, entidadBase, apiServicio,
               },
               my: 3,
               mx: 1,
-              width: "50%"
+              width: "50%",
             }}
             variant="contained"
             startIcon={<Add />}
@@ -99,4 +115,3 @@ function CardGenerica<T extends Base>({ entidadPrevia, entidadBase, apiServicio,
 }
 
 export default CardGenerica;
-

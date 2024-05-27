@@ -1,53 +1,44 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Empresa from "../../entidades/Empresa";
 import { useAtributos } from "../../hooks/useAtributos";
 import EmpresaService from "../../servicios/EmpresaService";
 import CardGenerica from "../../componentes/cardGenerica/CardGenerica";
+import { useDispatch } from "react-redux";
+import { selectEmpresa } from "../../redux/slices/slicesUnificados";
 
-export default function Empresas() {
+
+
+const Empresas: React.FC = () => {
   const { setNombreApartado } = useAtributos();
-  const [empresas, setEmpresas] = useState<Empresa[]>([]);
-  const [empresaSeleccionada, setEmpresaSeleccionada] = useState<Empresa | null>(null);
+
+  const empresa = new Empresa();
+  const empresaBase = new Empresa();
 
   const urlapi = import.meta.env.VITE_API_URL;
   const empresasService = new EmpresaService(urlapi + "/empresas");
 
-  const empresaBase = new Empresa();
-
   useEffect(() => {
     setNombreApartado("Empresas");
-    cargarEmpresas();
   }, []);
 
-  const cargarEmpresas = async () => {
-    try {
-      const empresasData = await empresasService.getAll();
-      setEmpresas(empresasData);
-    } catch (error) {
-      console.error("Error al cargar las empresas:", error);
-    }
-  };
+  const handleSeleccionEmpresa = async (idEmpresa: number) => {
+    
+    const empresaSeleccionada = empresasService.getById(idEmpresa)
 
-  const handleSeleccionarEmpresa = (empresa: Empresa) => {
-    setEmpresaSeleccionada(empresa); // Actualiza el estado con la empresa seleccionada
+    const dispatch = useDispatch();
+
+    dispatch(selectEmpresa(await empresaSeleccionada));
   };
 
   return (
-    <div className="m-3 d-flex flex-column align-items-center">
-      <h2>Selecciona una empresa:</h2>
-      <ul>
-        {empresas.map((empresa) => (
-          <li key={empresa.id} style={{ listStyleType: "none", margin: "10px 0" }}>
-            <CardGenerica
-              entidadPrevia={empresa}
-              entidadBase={empresaBase}
-              apiServicio={empresasService}
-              onSeleccionarEmpresa={handleSeleccionarEmpresa} // Pasa la función como prop
-            />
-          </li>
-        ))}
-      </ul>
+    <div className="m-3">
+      <CardGenerica
+        entidadPrevia={empresa}
+        entidadBase={empresaBase}
+        apiServicio={empresasService}
+      />
     </div>
   );
-}
+};
 
+export default Empresas;

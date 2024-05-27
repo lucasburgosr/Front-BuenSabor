@@ -1,4 +1,4 @@
-import Cliente from "../../entidades/Cliente";
+/* import Cliente from "../../entidades/Cliente";
 import GrillaGenerica from "../../componentes/grillaGenerica/GrillaGenerica";
 import ClienteService from "../../servicios/ClienteService";
 import { useAtributos } from "../../hooks/useAtributos";
@@ -28,4 +28,4 @@ export default function Clientes() {
         </PedidosContextProvider>
     </div>
     )
-}
+} */
