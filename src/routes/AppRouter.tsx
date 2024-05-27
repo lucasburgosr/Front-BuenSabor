@@ -29,13 +29,13 @@ const AppRouter: React.FC = () => {
             {/* Redirecciona la ruta raíz a /empresas */}
             <Route path="/" element={<Empresas/>} />
             <Route path="/empresas/inicio/:idEmpresa" element={<Inicio />} />
-            <Route path="/empresas/manufacturados/:idEmpresa" element={<Manufacturados />} />
+            <Route path="/manufacturados/empresas/:idEmpresa" element={<Manufacturados />} />
             <Route path="/empresas/insumos/:idEmpresa" element={<Insumo />} />
             <Route path="/empresas/categorias/:idEmpresa" element={<Categoria />} />
             {/* <Route path="/empresas/clientes/:idEmpresa" element={<Clientes />} /> */}
             <Route path="/empresas/promociones/:idEmpresa" element={<Promocion />} />
             <Route path="/sucursales/empresas/:idEmpresa" element={<Sucursales />} />
-            <Route path="/UnidadMedida" element={<UnidadMedida />} />
+            <Route path="/unidadMedida/empresas/:idEmpresa" element={<UnidadMedida />} />
             {/* <Route path="/empleados" element={<Empleado />} /> */}
           </Routes>
         </div>

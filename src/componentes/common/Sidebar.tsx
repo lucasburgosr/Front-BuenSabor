@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
+  cilBalanceScale,
   cilBarChart,
   cilBuilding,
   cilCart,
@@ -77,7 +78,7 @@ const Sidebar: React.FC = () => {
           >
             <CNavItem>
               <Link
-                to={`/empresas/manufacturados/${empresaId}`}
+                to={`/manufacturados/empresas/${empresaId}`}
                 className="nav-link"
               >
                 <span className="nav-icon">
@@ -87,20 +88,20 @@ const Sidebar: React.FC = () => {
               </Link>
             </CNavItem>
             <CNavItem>
-              <Link
-                to={`/empresas/insumos/${empresaId}`}
-                className="nav-link"
-              >
+              <Link to={`/empresas/insumos/${empresaId}`} className="nav-link">
                 <span className="nav-icon">
                   <span className="nav-icon-bullet"></span>
                 </span>
-               Insumos
+                Insumos
               </Link>
             </CNavItem>
           </CNavGroup>
 
           <CNavItem>
-            <Link to={`/empresas/promociones/${empresaId}`} className="nav-link">
+            <Link
+              to={`/empresas/promociones/${empresaId}`}
+              className="nav-link"
+            >
               <CIcon customClassName="nav-icon" icon={cilDollar} />
               Promociones
             </Link>
@@ -115,7 +116,10 @@ const Sidebar: React.FC = () => {
             }
           >
             <CNavItem>
-              <Link to={`/empresas/empleados/${empresaId}`} className="nav-link">
+              <Link
+                to={`/empresas/empleados/${empresaId}`}
+                className="nav-link"
+              >
                 <span className="nav-icon">
                   <span className="nav-icon-bullet"></span>
                 </span>
@@ -135,6 +139,15 @@ const Sidebar: React.FC = () => {
             <Link to={`/empresas/insumos${empresaId}`} className="nav-link">
               <CIcon customClassName="nav-icon" icon={cilCart} />
               Insumos
+            </Link>
+          </CNavItem>
+          <CNavItem>
+            <Link
+              to={`unidadMedida/empresas/${empresaId}`}
+              className="nav-link"
+            >
+              <CIcon customClassName="nav-icon" icon={cilBalanceScale} />
+              Unidad de Medida
             </Link>
           </CNavItem>
           <CNavItem>
