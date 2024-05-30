@@ -7,8 +7,8 @@ import ModalGenerico from "../modalGenerico/ModalGenerico";
 import CardGenericaCard from "./CardGenericaCard";
 import useGrillaHandlers from "../grillaGenerica/useGrillaHandler";
 import { Add } from "@mui/icons-material";
-import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box,Button } from "@mui/material";
+
 
 type ListArgs<T extends Base> = {
   entidadPrevia: T;
@@ -75,7 +75,7 @@ function CardGenerica<T extends Base>({
 
       <div
         style={{
-          height: "89vh",
+          height: "30vh",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -91,26 +91,36 @@ function CardGenerica<T extends Base>({
           deleteEntidad={deleteEntidad}
           sinEditar={sinEditar}
         />
-        {!sinNuevo && (
-          <Button
-            onClick={() => handleOpenModal(0)}
-            sx={{
-              bgcolor: "#a6c732",
-              "&:hover": {
-                bgcolor: "#a0b750",
-              },
-              my: 3,
-              mx: 1,
-              width: "50%",
-            }}
-            variant="contained"
-            startIcon={<Add />}
-          >
-            Nuevo
-          </Button>
-        )}
       </div>
+     
+      <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+       
+        height: "10vh", // Opcional: ajustar la altura del contenedor
+      }}
+    >
+      <Button
+        onClick={() => handleOpenModal(0)}
+        sx={{
+          bgcolor: "#a6c732",
+          "&:hover": {
+            bgcolor: "#a0b750",
+          },
+          my: 3,
+          width: "150px",
+          height: "40px", // Ajustar la altura del botón
+        }}
+        variant="contained"
+        startIcon={<Add />}
+      >
+        Nuevo
+      </Button>
+    </Box>
+        
     </>
+    
   );
 }
 

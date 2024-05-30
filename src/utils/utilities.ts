@@ -15,16 +15,16 @@ import BackendClient from '../servicios/BackendClient';
  */
 export const handleDelete = async <T>(
   index: number,
-  backendService: BackendClient<T>,
+  _backendService: BackendClient<T>,
   filteredData: any[],
-  fetchItems: () => void,
+  _fetchItems: () => void,
   confirmationMessage: string = '¿Estás seguro de eliminar este elemento?',
-  successMessage: string = 'Elemento eliminado correctamente.',
-  errorMessage: string = 'Hubo un problema al eliminar el elemento.',
-  url: string
+  _successMessage: string = 'Elemento eliminado correctamente.',
+  _errorMessage: string = 'Hubo un problema al eliminar el elemento.',
+  _url: string
 ) => {
-  const itemToDelete = filteredData[index];
-  const itemId = itemToDelete.id.toString(); // Convertimos el ID a string
+  const _itemToDelete = filteredData[index];
+ // const itemId = itemToDelete.id.toString(); // Convertimos el ID a string
 
   const result = await Swal.fire({
     title: '¿Estás seguro?',
@@ -54,25 +54,25 @@ export const handleDelete = async <T>(
   // );
   // }
   // }
-  };
+};
 
 
-  /**
-   * Función para realizar una búsqueda dentro de un conjunto de datos.
-   * @param query La cadena de búsqueda.
-   * @param data Array de datos en el que se realizará la búsqueda.
-   * @param nombre El nombre de la propiedad sobre la que se realizará la búsqueda.
-   * @param setData Función para actualizar los datos filtrados con los resultados de la búsqueda.
-   */
-  export const handleSearch = (
-    query: string,
-    data: any[],
-    nombre: string, // Cambiado a string en lugar de any
-    setData: Dispatch<SetStateAction<any[]>>
-  ) => {
-    const filtered = data.filter((item) =>
-      item[nombre].toLowerCase().includes(query.toLowerCase())
-    );
-    setData(filtered);
-  };
+/**
+ * Función para realizar una búsqueda dentro de un conjunto de datos.
+ * @param query La cadena de búsqueda.
+ * @param data Array de datos en el que se realizará la búsqueda.
+ * @param nombre El nombre de la propiedad sobre la que se realizará la búsqueda.
+ * @param setData Función para actualizar los datos filtrados con los resultados de la búsqueda.
+ */
+export const handleSearch = (
+  query: string,
+  data: any[],
+  nombre: string, // Cambiado a string en lugar de any
+  setData: Dispatch<SetStateAction<any[]>>
+) => {
+  const filtered = data.filter((item) =>
+    item[nombre].toLowerCase().includes(query.toLowerCase())
+  );
+  setData(filtered);
+};
 

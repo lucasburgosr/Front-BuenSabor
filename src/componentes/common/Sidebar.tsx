@@ -135,12 +135,7 @@ const Sidebar: React.FC = () => {
               </Link>
             </CNavItem>
           </CNavGroup>
-          <CNavItem>
-            <Link to={`/empresas/insumos${empresaId}`} className="nav-link">
-              <CIcon customClassName="nav-icon" icon={cilCart} />
-              Insumos
-            </Link>
-          </CNavItem>
+         
           <CNavItem>
             <Link
               to={`unidadMedida/empresas/${empresaId}`}
@@ -150,7 +145,7 @@ const Sidebar: React.FC = () => {
               Unidad de Medida
             </Link>
           </CNavItem>
-          <CNavItem>
+          <CNavItem >
             <Link to={`/`} className="nav-link">
               Volver a Empresas
             </Link>

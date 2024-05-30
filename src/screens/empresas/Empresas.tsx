@@ -6,6 +6,8 @@ import CardGenerica from "../../componentes/cardGenerica/CardGenerica";
 import { useDispatch } from "react-redux";
 import { selectEmpresa } from "../../redux/slices/slicesUnificados";
 
+import { Add } from "@mui/icons-material";
+import { Box, Button } from "@mui/material";
 
 
 const Empresas: React.FC = () => {
@@ -22,7 +24,7 @@ const Empresas: React.FC = () => {
   }, []);
 
   const handleSeleccionEmpresa = async (idEmpresa: number) => {
-    
+
     const empresaSeleccionada = empresasService.getById(idEmpresa)
 
     const dispatch = useDispatch();
@@ -37,7 +39,9 @@ const Empresas: React.FC = () => {
         entidadBase={empresaBase}
         apiServicio={empresasService}
       />
+    
     </div>
+
   );
 };
 
