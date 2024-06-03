@@ -20,18 +20,16 @@ function CardGenericaCard<T extends Base>({
   return (
     <div 
     
-    className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-2 justify-content-center gap-3">
+    className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-2 justify-content-center gap-3">
       {entidades.filter(entidadI => (categoria === 0 || entidadI.categoria.id === categoria)).map((entidadI: T) => (
         <div  style={{
-          width: "100%",
+         
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#f0f0f0", // Fondo gris claro
-          padding: "15px", // Espaciado interno
-          borderRadius: "10px", // Bordes redondeados
-          boxShadow: "0 10px 2px rgba(0, 0, 0, 0.3)", // Sombra sutil
-          margin: "5px 0" // Margen superior e inferior
+ 
+          padding: "1%", // Espaciado interno
+         
         }} key={entidadI.id} className="col">
           <Link
               to={`/empresas/inicio/${entidadI.id}`}
@@ -47,6 +45,7 @@ function CardGenericaCard<T extends Base>({
           </div>
           </Link>
         </div>
+        
       ))}
     </div>
   );

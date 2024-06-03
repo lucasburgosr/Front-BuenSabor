@@ -74,12 +74,7 @@ function CardGenerica<T extends Base>({
       {modalPedidos}
 
       <div
-        style={{
-          height: "30vh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
+
       >
         <CardGenericaCard
           entidades={entidades}
@@ -97,8 +92,8 @@ function CardGenerica<T extends Base>({
       sx={{
         display: "flex",
         justifyContent: "center",
-       
-      
+       width:"100%",
+        height: "30%", // Opcional: ajustar la altura del contenedor
       }}
     >
       <Button
