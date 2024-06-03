@@ -1,4 +1,4 @@
-import React from "react";
+
 import { Link } from "react-router-dom";
 import Base from "../../entidades/Base";
 
@@ -23,7 +23,7 @@ function CardGenericaCard<T extends Base>({
     className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-2 justify-content-center gap-3">
       {entidades.filter(entidadI => (categoria === 0 || entidadI.categoria.id === categoria)).map((entidadI: T) => (
         <div  style={{
-          width: "25vh",
+          width: "100%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

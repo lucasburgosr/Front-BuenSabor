@@ -3,7 +3,7 @@ import Categoria from "../../entidades/Categoria";
 import CategoriaService from "../../servicios/CategoriaService";
 import { useAtributos } from "../../hooks/useAtributos";
 import './Categorias.css';
-import { Box, Button } from "@mui/material";
+import {  Button } from "@mui/material";
 function CategoriasForm() {
     const { categorias, setCategorias } = useAtributos();
     const [txtDenominacionNueva, setTxtDenominacionNueva] = useState<string>("");

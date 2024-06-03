@@ -98,7 +98,7 @@ function CardGenerica<T extends Base>({
         display: "flex",
         justifyContent: "center",
        
-        height: "10vh", // Opcional: ajustar la altura del contenedor
+      
       }}
     >
       <Button
@@ -109,8 +109,8 @@ function CardGenerica<T extends Base>({
             bgcolor: "#a0b750",
           },
           my: 3,
-          width: "150px",
-          height: "40px", // Ajustar la altura del botón
+          width: "5%",
+          height: "30%", // Ajustar la altura del botón
         }}
         variant="contained"
         startIcon={<Add />}

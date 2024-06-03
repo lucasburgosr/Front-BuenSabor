@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Inicio from "../screens/inicio/Inicio";
 import Manufacturados from "../screens/manufacturados/Manufacturados";
-import Empresa from "../screens/empresas/Empresas";
+
 import Insumo from "../screens/insumos/Insumos";
 import UnidadMedida from "../screens/UnidadMedida/UnidadMedidaForm";
 import Categoria from "../screens/categorias/Categorias";

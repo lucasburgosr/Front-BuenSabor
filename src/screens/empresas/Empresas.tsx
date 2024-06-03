@@ -6,10 +6,6 @@ import CardGenerica from "../../componentes/cardGenerica/CardGenerica";
 import { useDispatch } from "react-redux";
 import { selectEmpresa } from "../../redux/slices/slicesUnificados";
 
-import { Add } from "@mui/icons-material";
-import { Box, Button } from "@mui/material";
-
-
 const Empresas: React.FC = () => {
   const { setNombreApartado } = useAtributos();
 
