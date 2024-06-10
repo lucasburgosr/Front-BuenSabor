@@ -25,15 +25,6 @@ const Empresas: React.FC = () => {
     setNombreApartado("Empresas");
   }, []);
 
-  const handleSeleccionEmpresa = async (idEmpresa: number) => {
-
-    const empresaSeleccionada = empresasService.getById(idEmpresa)
-
-    const dispatch = useDispatch();
-
-    dispatch(selectEmpresa(await empresaSeleccionada));
-  };
-
   return (
     <div className="m-3">
       <CardGenerica

@@ -87,6 +87,7 @@ function CardGenerica<T extends Base>({
           handleOpenModal={handleOpenModal}
           deleteEntidad={deleteEntidad}
           sinEditar={sinEditar}
+          onClick={onClick}
         />
       </div>
      
