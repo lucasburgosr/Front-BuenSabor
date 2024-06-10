@@ -4,12 +4,18 @@ import GrillaGenerica from "../../componentes/grillaGenerica/GrillaGenerica";
 import { useAtributos } from "../../hooks/useAtributos";
 import PromocionService from "../../servicios/PromocionService";
 import { TipoPromocion } from "../../enums/TipoPromocion";
+import { useSelector } from "react-redux";
+import { RootState } from '../../redux/store/store';
 
 export default function Promociones() {
-    const {setNombreApartado} = useAtributos();
+    const {empresas, getEmpresasRest, setNombreApartado} = useAtributos();
 
     const promocion = new Promocion();
     const promocionBase = new Promocion();
+
+    const empresaSeleccionada = useSelector(
+        (state: RootState) => state.empresa.selectedEntity
+      );
 
     const tiposPromocion = Object.values(TipoPromocion).splice(0, Object.values(TipoPromocion).length/2).map(tipo => { return {id:tipo, denominacion:tipo}})
 

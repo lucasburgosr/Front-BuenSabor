@@ -1,35 +1,36 @@
-import { useEffect } from "react";
-import Sucursal from "../../entidades/Sucursal";
-import { useAtributos } from "../../hooks/useAtributos";
-import SucursalService from "../../servicios/SucursalService";
-import GrillaGenerica from "../../componentes/grillaGenerica/GrillaGenerica";
-import { useParams } from "react-router-dom";
+// src/componentes/sucursales/Sucursales.tsx
+import { useEffect } from 'react';
+import Sucursal from '../../entidades/Sucursal';
+import { useAtributos } from '../../hooks/useAtributos';
+import SucursalService from '../../servicios/SucursalService';
+import GrillaGenerica from '../../componentes/grillaGenerica/GrillaGenerica';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store/store'; // Asegúrate de importar RootState
 
 export default function Sucursales() {
-  const { empresas, modalEmpresas, getEmpresasRest, setNombreApartado } =
-    useAtributos();
-  const { idEmpresa } = useParams();
-
-  // Verifica si idEmpresa está disponible y es un número
-  if (idEmpresa) {
-    console.log("ID disponible:", idEmpresa);
-    // Utiliza el ID disponible para realizar operaciones
-  } else {
-    console.log("ID no disponible");
-  }
+  const { empresas, modalEmpresas, getEmpresasRest, setNombreApartado } = useAtributos();
 
   const sucursal = new Sucursal();
   const sucursalBase = new Sucursal();
 
   const urlapi = import.meta.env.VITE_API_URL;
-  const sucursalesService = new SucursalService(
-    `${urlapi}/sucursales/empresas/${idEmpresa}`
+
+  const empresaSeleccionada = useSelector(
+    (state: RootState) => state.empresa.selectedEntity // Asegúrate de que la ruta sea correcta
   );
 
   useEffect(() => {
     setNombreApartado("Sucursales");
     getEmpresasRest();
   }, []);
+
+  if (!empresaSeleccionada) {
+    return <div>Selecciona una empresa para ver las sucursales.</div>;
+  }
+
+  const sucursalesService = new SucursalService(
+    `${urlapi}/sucursales/empresas/${empresaSeleccionada.id}`
+  );
 
   return (
     <div className="m-3">

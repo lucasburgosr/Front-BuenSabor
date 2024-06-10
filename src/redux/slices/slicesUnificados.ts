@@ -1,3 +1,4 @@
+// src/redux/slices/slicesUnificados.ts
 import Categoria from "../../entidades/Categoria";
 import Empleado from "../../entidades/Empleado";
 import Empresa from "../../entidades/Empresa";
@@ -47,7 +48,8 @@ export const {
   resetEntities: resetUnidadMedida,
 } = unidadMedidaSlice.actions;
 
-export default {
+// Combinación de reducers
+const rootReducer = {
   empleado: empleadoSlice.reducer,
   empresa: empresaSlice.reducer,
   categoria: categoriaSlice.reducer,
@@ -57,3 +59,5 @@ export default {
   sucursal: sucursalSlice.reducer,
   unidadMedida: unidadMedidaSlice.reducer,
 };
+
+export default rootReducer;

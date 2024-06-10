@@ -1,8 +1,10 @@
-import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
-import { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 import Inicio from "../screens/inicio/Inicio";
 import Manufacturados from "../screens/manufacturados/Manufacturados";
-import Empresa from "../screens/empresas/Empresas";
 import Insumo from "../screens/insumos/Insumos";
 import UnidadMedida from "../screens/UnidadMedida/UnidadMedidaForm";
 import Categoria from "../screens/categorias/Categorias";
@@ -14,9 +16,6 @@ import Sidebar from "../componentes/common/Sidebar";
 import Empresas from "../screens/empresas/Empresas";
 
 const AppRouter: React.FC = () => {
-  // Estado para almacenar el idEmpresa
-  const [idEmpresa, setIdEmpresa] = useState<number | null>();
-
   return (
     <Router>
       <div style={{ width: "100%" }}>
@@ -27,15 +26,18 @@ const AppRouter: React.FC = () => {
         <div style={{ flexGrow: 1 }}>
           <Routes>
             {/* Redirecciona la ruta raíz a /empresas */}
-            <Route path="/" element={<Empresas/>} />
-            <Route path="/empresas/inicio/:idEmpresa" element={<Inicio />} />
-            <Route path="/manufacturados/empresas/:idEmpresa" element={<Manufacturados />} />
-            <Route path="/empresas/insumos/:idEmpresa" element={<Insumo />} />
-            <Route path="/empresas/categorias/:idEmpresa" element={<Categoria />} />
+            <Route path="/" element={<Empresas />} />
+            <Route path="/empresas/inicio/" element={<Inicio />} />
+            <Route
+              path="/manufacturados/empresas/"
+              element={<Manufacturados />}
+            />
+            <Route path="/empresas/insumos/" element={<Insumo />} />
+            <Route path="/empresas/categorias/" element={<Categoria />} />
             {/* <Route path="/empresas/clientes/:idEmpresa" element={<Clientes />} /> */}
-            <Route path="/empresas/promociones/:idEmpresa" element={<Promocion />} />
-            <Route path="/sucursales/empresas/:idEmpresa" element={<Sucursales />} />
-            <Route path="/unidadMedida/empresas/:idEmpresa" element={<UnidadMedida />} />
+            <Route path="/empresas/promociones/" element={<Promocion />} />
+            <Route path="/sucursales/empresas/" element={<Sucursales />} />
+            <Route path="/unidadMedida/empresas/" element={<UnidadMedida />} />
             {/* <Route path="/empleados" element={<Empleado />} /> */}
           </Routes>
         </div>
@@ -45,4 +47,3 @@ const AppRouter: React.FC = () => {
 };
 
 export default AppRouter;
-

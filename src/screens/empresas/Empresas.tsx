@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { selectEmpresa } from "../../redux/slices/slicesUnificados";
 
 
-
 const Empresas: React.FC = () => {
   const { setNombreApartado } = useAtributos();
 
@@ -17,18 +16,15 @@ const Empresas: React.FC = () => {
   const urlapi = import.meta.env.VITE_API_URL;
   const empresasService = new EmpresaService(urlapi + "/empresas");
 
+  const dispatch = useDispatch();
+
+  const handleEmpresaClick = (empresa: Empresa) => {
+    dispatch(selectEmpresa(empresa));
+  }
+
   useEffect(() => {
     setNombreApartado("Empresas");
   }, []);
-
-  const handleSeleccionEmpresa = async (idEmpresa: number) => {
-    
-    const empresaSeleccionada = empresasService.getById(idEmpresa)
-
-    const dispatch = useDispatch();
-
-    dispatch(selectEmpresa(await empresaSeleccionada));
-  };
 
   return (
     <div className="m-3">
@@ -36,6 +32,7 @@ const Empresas: React.FC = () => {
         entidadPrevia={empresa}
         entidadBase={empresaBase}
         apiServicio={empresasService}
+        onClick={handleEmpresaClick}
       />
     </div>
   );

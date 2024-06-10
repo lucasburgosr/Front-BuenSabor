@@ -8,7 +8,6 @@ import CardGenericaCard from "./CardGenericaCard";
 import useGrillaHandlers from "../grillaGenerica/useGrillaHandler";
 import { Add } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
 
 type ListArgs<T extends Base> = {
   entidadPrevia: T;
@@ -17,6 +16,7 @@ type ListArgs<T extends Base> = {
   listaSelects?: {};
   sinNuevo?: boolean;
   sinEditar?: boolean;
+  onClick?: (entidad: T) => void; // Nuevo prop onClick
 };
 
 function CardGenerica<T extends Base>({
@@ -26,6 +26,7 @@ function CardGenerica<T extends Base>({
   listaSelects = {},
   sinNuevo = false,
   sinEditar = false,
+  onClick,
 }: ListArgs<T>) {
   const [entidad, setEntidad] = useState<T>(entidadPrevia);
   const [entidades, setEntidades] = useState<T[]>([]);
@@ -90,6 +91,7 @@ function CardGenerica<T extends Base>({
           handleOpenModal={handleOpenModal}
           deleteEntidad={deleteEntidad}
           sinEditar={sinEditar}
+          onClick={onClick} // Pasar onClick a CardGenericaCard
         />
         {!sinNuevo && (
           <Button
