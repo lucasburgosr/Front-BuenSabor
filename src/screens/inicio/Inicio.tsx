@@ -14,11 +14,11 @@ const ProductoContent = {
     content: 'Añade nuevos platos o actualiza los precios para mejorar la experiencia de tus clientes.',
 };
 
-const empresasContent = {
-    url: './logo/empresa.png',
-    title: 'Empresas',
-    content: 'Agrega, actualiza o elimina información sobre tus empresas asociadas.'
-};
+//const empresasContent = {
+//   url: './logo/empresa.png',
+//    title: 'Empresas',
+//    content: 'Agrega, actualiza o elimina información sobre tus empresas asociadas.'
+//};
 
 const promocionesContent = {
     url: './logo/promo.png',
@@ -38,18 +38,18 @@ const Inicio: React.FC = () => {
 
     const { idEmpresa } = useParams();
 
-  // Verifica si idEmpresa está disponible y es un número
-  if (idEmpresa) {
-    console.log('ID disponible:', idEmpresa);
-    // Utiliza el ID disponible para realizar operaciones
-  } else {
-    console.log('ID no disponible');
-  }
+    // Verifica si idEmpresa está disponible y es un número
+    if (idEmpresa) {
+        console.log('ID disponible:', idEmpresa);
+        // Utiliza el ID disponible para realizar operaciones
+    } else {
+        console.log('ID no disponible');
+    }
 
     return (
         <Box component="main" sx={{ flexGrow: 2, pl: 9, pt: 4, backgroundColor: '#f0f0f0' }}>
             <Container>
-                
+
                 <Typography component="h1" variant="h5" color="initial" align="center" >Bienvenido</Typography>
                 <Grid container spacing={2} sx={{ alignContent: 'center', justifyContent: 'center' }}>
                     <Grid item xs={12} md={4}>
@@ -66,14 +66,14 @@ const Inicio: React.FC = () => {
                 </Grid>
                 <Typography component="h1" variant="h5" color="initial" align="center" >Estadísticas</Typography>
 
-                <Grid className="gridBarra" container spacing={3} sx={{ py:5 }}>
-                    <Grid className="gridBarra-item" item xs={12} md={12}> 
+                <Grid className="gridBarra" container spacing={3} sx={{ py: 5 }}>
+                    <Grid className="gridBarra-item" item xs={12} md={12}>
                         <ChartCard title="">
                             <AllBar />
                         </ChartCard>
                     </Grid>
                 </Grid>
-                <Grid   container spacing={3} sx={{ py: 2, alignContent: 'center', justifyContent: 'center' }}>
+                <Grid container spacing={3} sx={{ py: 2, alignContent: 'center', justifyContent: 'center' }}>
                     <Grid item xs={12} md={12}>
                         <ChartCard title="">
                             <BasePie />
@@ -82,7 +82,7 @@ const Inicio: React.FC = () => {
                 </Grid>
             </Container>
         </Box>
-        
+
     );
 };
 

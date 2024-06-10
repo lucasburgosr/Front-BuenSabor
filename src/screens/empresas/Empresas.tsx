@@ -6,7 +6,6 @@ import CardGenerica from "../../componentes/cardGenerica/CardGenerica";
 import { useDispatch } from "react-redux";
 import { selectEmpresa } from "../../redux/slices/slicesUnificados";
 
-
 const Empresas: React.FC = () => {
   const { setNombreApartado } = useAtributos();
 
@@ -26,6 +25,15 @@ const Empresas: React.FC = () => {
     setNombreApartado("Empresas");
   }, []);
 
+  const handleSeleccionEmpresa = async (idEmpresa: number) => {
+
+    const empresaSeleccionada = empresasService.getById(idEmpresa)
+
+    const dispatch = useDispatch();
+
+    dispatch(selectEmpresa(await empresaSeleccionada));
+  };
+
   return (
     <div className="m-3">
       <CardGenerica
@@ -34,7 +42,9 @@ const Empresas: React.FC = () => {
         apiServicio={empresasService}
         onClick={handleEmpresaClick}
       />
+    
     </div>
+
   );
 };
 

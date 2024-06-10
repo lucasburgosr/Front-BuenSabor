@@ -7,7 +7,8 @@ import ModalGenerico from "../modalGenerico/ModalGenerico";
 import CardGenericaCard from "./CardGenericaCard";
 import useGrillaHandlers from "../grillaGenerica/useGrillaHandler";
 import { Add } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import { Box,Button } from "@mui/material";
+
 
 type ListArgs<T extends Base> = {
   entidadPrevia: T;
@@ -75,12 +76,7 @@ function CardGenerica<T extends Base>({
       {modalPedidos}
 
       <div
-        style={{
-          height: "89vh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
+
       >
         <CardGenericaCard
           entidades={entidades}
@@ -91,28 +87,37 @@ function CardGenerica<T extends Base>({
           handleOpenModal={handleOpenModal}
           deleteEntidad={deleteEntidad}
           sinEditar={sinEditar}
-          onClick={onClick} // Pasar onClick a CardGenericaCard
         />
-        {!sinNuevo && (
-          <Button
-            onClick={() => handleOpenModal(0)}
-            sx={{
-              bgcolor: "#a6c732",
-              "&:hover": {
-                bgcolor: "#a0b750",
-              },
-              my: 3,
-              mx: 1,
-              width: "50%",
-            }}
-            variant="contained"
-            startIcon={<Add />}
-          >
-            Nuevo
-          </Button>
-        )}
       </div>
+     
+      <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+       width:"100%",
+        height: "30%", // Opcional: ajustar la altura del contenedor
+      }}
+    >
+      <Button
+        onClick={() => handleOpenModal(0)}
+        sx={{
+          bgcolor: "#a6c732",
+          "&:hover": {
+            bgcolor: "#a0b750",
+          },
+          my: 3,
+          width: "5%",
+          height: "30%", // Ajustar la altura del botón
+        }}
+        variant="contained"
+        startIcon={<Add />}
+      >
+        Nuevo
+      </Button>
+    </Box>
+        
     </>
+    
   );
 }
 
