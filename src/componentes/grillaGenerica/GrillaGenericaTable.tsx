@@ -1,8 +1,9 @@
-
+// src/componentes/grillaGenerica/GrillaGenericaTable.tsx
 import Base from "../../entidades/Base";
 import Domicilio from "../../entidades/Domicilio";
 import { Button } from "@mui/material";
 import Paper from "@mui/material/Paper";
+
 export type GrillaGenericaTableProps<T> = {
   entidades: T[];
   labels: string[];
@@ -28,7 +29,6 @@ function GrillaGenericaTable<T extends Base>({
   deleteEntidad,
   sinEditar,
 }: GrillaGenericaTableProps<T>) {
-
   return (
     <div
       style={{
@@ -49,7 +49,6 @@ function GrillaGenericaTable<T extends Base>({
             <tr>
               {labels &&
                 labels.map((label: string, index: number) => (
-
                   <th
                     style={{ textAlign: "center", backgroundColor: "#a6c732" }}
                     key={index}
@@ -62,7 +61,6 @@ function GrillaGenericaTable<T extends Base>({
                       "Tiene sucursales",
                       "Promociones",
                     ].includes(label)}
-
                   >
                     <div style={{ fontWeight: 'normal' }}>
                       <b>{label}</b>
@@ -91,13 +89,9 @@ function GrillaGenericaTable<T extends Base>({
                 (entidadI) => categoria === 0 || entidadI.categoria.id === categoria
               )
               .map((entidadI: T) => (
-
                 <tr key={entidadI.id}>
-
                   {keys.map((key, index) => (
-
                     <td style={{ backgroundColor: '#e0ebc2' }}
-
                       key={index}
                       hidden={[
                         "id",
@@ -110,7 +104,6 @@ function GrillaGenericaTable<T extends Base>({
                         "promociones",
                       ].includes(String(key))}
                     >
-
                       {!["esParaElaborar", "casaMatriz"].includes(String(key)) ? (
                         !["domicilios", "pedidos"].includes(String(key)) ? (
                           <div style={{ backgroundColor: '#e0ebc2' }}>
@@ -167,11 +160,9 @@ function GrillaGenericaTable<T extends Base>({
                         </div>
                       )}
                     </td>
-
                   ))}
 
                   {!sinEditar && (
-
                     <td style={{ backgroundColor: '#e0ebc2' }}>
                       <div style={{ backgroundColor: '#e0ebc2' }}>
                         <Button
@@ -179,7 +170,6 @@ function GrillaGenericaTable<T extends Base>({
                             letterSpacing: "1px",
                             fontWeight: "bold",
                             backgroundColor: "#a6c732",
-                            
                           }}
                           className="custom-button"
                           variant="contained"
@@ -191,9 +181,7 @@ function GrillaGenericaTable<T extends Base>({
                           Modificar
                         </Button>
                       </div>
-
                     </td>
-
                   )}
 
                   <td style={{ backgroundColor: '#e0ebc2' }}>
@@ -203,7 +191,6 @@ function GrillaGenericaTable<T extends Base>({
                           letterSpacing: "1px",
                           fontWeight: "bold",
                           backgroundColor: "#e05151",
-                          
                         }}
                         className="custom-button"
                         variant="contained"
@@ -214,14 +201,12 @@ function GrillaGenericaTable<T extends Base>({
                       </Button>
                     </div>
                   </td>
-
                 </tr>
-
               ))}
           </tbody>
         </table>
       </Paper>
-    </div >
+    </div>
   );
 }
 

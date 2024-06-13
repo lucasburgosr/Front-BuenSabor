@@ -8,7 +8,7 @@ export type UseGrillaHandlersProps<T> = {
   setEntidad: (entidad: T) => void,
   entidades: T[],
   setEntidades: (entidades: T[]) => void,
-  apiServicio: BackendClient<T>,
+  apiServicio?: BackendClient<T>, // Hacemos que apiServicio sea opcional
   categoria: number,
   setCategoria: (categoria: number) => void,
   listaSelects: {},
@@ -22,7 +22,9 @@ function useGrillaHandlers<T extends Base>({
   entidades,
   setEntidades,
   apiServicio,
+  categoria,
   setCategoria,
+  listaSelects,
   entidadBase,
   modalRef
 }: UseGrillaHandlersProps<T>) {
@@ -42,10 +44,8 @@ function useGrillaHandlers<T extends Base>({
   };
 
   const cleanData = (data: any): any => {
-    // Crear una copia profunda del objeto
     const cleanedData = JSON.parse(JSON.stringify(data));
-  
-    // Asegurarse de que la propiedad type está presente
+
     if (cleanedData.articuloManufacturadoDetalles) {
       cleanedData.articuloManufacturadoDetalles = cleanedData.articuloManufacturadoDetalles.map((detalle: any) => {
         if (detalle.articuloInsumo) {
@@ -54,43 +54,59 @@ function useGrillaHandlers<T extends Base>({
         return detalle;
       });
     }
-  
-    // Establecer el tipo para el objeto principal si es un ArticuloManufacturado
+
     if (cleanedData.articuloManufacturadoDetalles) {
       cleanedData.type = 'manufacturado';
     } else {
       cleanedData.type = 'insumo';
     }
-  
+
     return cleanedData;
   };
 
   const getDatosRest = useCallback(async () => {
-    const datos: T[] = await apiServicio.getAll();
-    setEntidades(datos);
+    if (apiServicio) {
+      const datos: T[] = await apiServicio.getAll();
+      setEntidades(datos);
+    }
   }, [apiServicio, setEntidades]);
 
   const deleteEntidad = useCallback(async (id: number) => {
-    try {
-      await apiServicio.delete(id);
-    } catch {
-      alert(`Hubo un conflicto. Asegúrese de que ${(entidad as any).constructor.nombre} no esté utilizándose en otros datos.`);
+    if (apiServicio) {
+      try {
+        await apiServicio.delete(id);
+      } catch {
+        alert(`Hubo un conflicto. Asegúrese de que ${(entidad as any).constructor.nombre} no esté utilizándose en otros datos.`);
+      }
+      getDatosRest();
+    } else {
+      // Eliminación local si no hay apiServicio
+      setEntidades(entidades.filter(entidad => entidad.id !== id));
     }
-    getDatosRest();
-  }, [apiServicio, (entidad as any).constructor.name, getDatosRest]);
+  }, [apiServicio, (entidad as any).constructor.name, getDatosRest, entidades, setEntidades]);
 
   const save = useCallback(async (formData: T) => {
     const cleanedFormData = cleanData(formData);
 
-    if (cleanedFormData.id === 0) {
-      await apiServicio.post(cleanedFormData);
+    if (apiServicio) {
+      if (cleanedFormData.id === 0) {
+        await apiServicio.post(cleanedFormData);
+      } else {
+        await apiServicio.put(cleanedFormData.id, cleanedFormData);
+      }
+      getDatosRest();
     } else {
-      await apiServicio.put(cleanedFormData.id, cleanedFormData);
+      // Guardado local si no hay apiServicio
+      if (cleanedFormData.id === 0) {
+        setEntidades([...entidades, { ...cleanedFormData, id: entidades.length + 1 }]);
+      } else {
+        setEntidades(entidades.map(entidad => entidad.id === cleanedFormData.id ? cleanedFormData : entidad));
+      }
     }
-    getDatosRest();
+
     const modalClose: HTMLElement | null = document.getElementById(`btn-close-${(entidad as any).constructor.name}`);
     modalClose?.click();
-  }, [apiServicio, (entidad as any).constructor.name, getDatosRest]);
+  }, [apiServicio, (entidad as any).constructor.name, getDatosRest, entidades, setEntidades]);
 
   const cambiarBooleano = useCallback(async (value: number, atributo: string) => {
     const nuevo: T = entidades.find((entidad: T) => entidad.id === value)!;
@@ -107,15 +123,13 @@ function useGrillaHandlers<T extends Base>({
 
   const handleOpenModal = useCallback((id: number) => {
     if (id) {
-      const seleccion: T = entidad;
-      Object.assign(seleccion, entidades.find(a => a.id === id)!);
+      const seleccion: T = { ...entidades.find(a => a.id === id)! };
       if (entidad.constructor.name === 'Cliente') {
         (seleccion as any).pedidos = [];
       }
       setEntidad(seleccion);
     } else {
-      const nueva: T = entidad;
-      Object.assign(entidad, entidadBase);
+      const nueva: T = { ...entidadBase };
       setEntidad(nueva);
     }
     modalRef.current.openModal();
@@ -132,4 +146,3 @@ function useGrillaHandlers<T extends Base>({
 }
 
 export default useGrillaHandlers;
-

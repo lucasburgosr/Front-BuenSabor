@@ -3,19 +3,30 @@ import Categoria from "../../entidades/Categoria";
 import CategoriaService from "../../servicios/CategoriaService";
 import { useAtributos } from "../../hooks/useAtributos";
 import './Categorias.css';
-import {  Button } from "@mui/material";
+import { Button } from "@mui/material";
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store/store'; // Asegúrate de importar RootState
+
 function CategoriasForm() {
     const { categorias, setCategorias } = useAtributos();
     const [txtDenominacionNueva, setTxtDenominacionNueva] = useState<string>("");
     const [txtValidacion, setTxtValidacion] = useState<string>("");
 
     const urlapi = import.meta.env.VITE_API_URL;
-    const categoriaService = new CategoriaService(urlapi + "/categorias");
+    const empresaSeleccionada = useSelector((state: RootState) => state.empresa.selectedEntity);
+
+    const categoriaService = new CategoriaService(`${urlapi}/categorias/empresas/${empresaSeleccionada?.id}`);
 
     const getCategoriasRest = async () => {
-        let nuevasCategorias: Categoria[] = await categoriaService.getAll();
-        setCategorias(nuevasCategorias);
-    }
+        if (empresaSeleccionada) {
+            let nuevasCategorias: Categoria[] = await categoriaService.getAll();
+            setCategorias(nuevasCategorias);
+        }
+    };
+
+    useEffect(() => {
+        getCategoriasRest();
+    }, [empresaSeleccionada]);
 
     const mostrarCategorias = (categoria: Categoria, padreId: number) => {
         const tieneHijos: boolean = categoria.subCategorias.length > 0;
@@ -104,8 +115,8 @@ function CategoriasForm() {
                 }
 
             </div>
-        )
-    }
+        );
+    };
 
     const mostrarInput = (categoriaPadreId?: number) => {
         const inputs = document.getElementsByClassName("input-categoria");
@@ -117,10 +128,10 @@ function CategoriasForm() {
 
         if (categoriaPadreId !== null)
             document.getElementById("inputCategoria" + categoriaPadreId)?.removeAttribute("hidden");
-    }
+    };
 
     const save = async (categoriaPadreId: number | null) => {
-        if (txtDenominacionNueva == undefined || txtDenominacionNueva == "") {
+        if (txtDenominacionNueva === "") {
             setTxtValidacion("Ingrese el nombre de la categoría");
             return;
         }
@@ -132,8 +143,7 @@ function CategoriasForm() {
             const categoriaPadre: Categoria = categorias.filter(categoria => categoria.id === categoriaPadreId)[0];
             categoriaPadre.subCategorias.push(categoriaNueva);
             await categoriaService.put(categoriaPadreId, categoriaPadre);
-        }
-        else {
+        } else {
             await categoriaService.post(categoriaNueva);
         }
 
@@ -141,7 +151,7 @@ function CategoriasForm() {
         mostrarInput();
 
         await getCategoriasRest();
-    }
+    };
 
     const eliminarCategoria = async (categoriaId: number) => {
         try {
@@ -151,11 +161,7 @@ function CategoriasForm() {
         }
 
         await getCategoriasRest();
-    }
-
-    useEffect(() => {
-        getCategoriasRest();
-    }, []);
+    };
 
     return (
         <>

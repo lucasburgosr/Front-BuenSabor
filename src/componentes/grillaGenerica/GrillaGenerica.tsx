@@ -1,3 +1,4 @@
+// src/componentes/grillaGenerica/GrillaGenerica.tsx
 import { useEffect, useRef, useState } from "react";
 import CboBoxFiltrar from "../cboBoxFiltrar/CboBoxFiltrar";
 import { useAtributos } from "../../hooks/useAtributos";
@@ -15,11 +16,11 @@ import { Add } from "@mui/icons-material";
 type ListArgs<T extends Base> = {
   entidadPrevia: T;
   entidadBase: T;
-  apiServicio: BackendClient<T>;
+  apiServicio?: BackendClient<T>; // Hacemos que apiServicio sea opcional
   listaSelects?: {};
   sinNuevo?: boolean;
   sinEditar?: boolean;
-  data?: T[];
+  data: T[];
 };
 
 function GrillaGenerica<T extends Base>({
@@ -29,7 +30,7 @@ function GrillaGenerica<T extends Base>({
   listaSelects = {},
   sinNuevo = false,
   sinEditar = false,
-  data = [],
+  data,
 }: ListArgs<T>) {
   const [entidad, setEntidad] = useState<T>(entidadPrevia);
   const [entidades, setEntidades] = useState<T[]>(data);
@@ -42,12 +43,12 @@ function GrillaGenerica<T extends Base>({
   const modalRef = useRef<any>(null);
 
   const {
-    getDatosRest,
-    deleteEntidad,
     save,
     cambiarBooleano,
     handleChangeCategoria,
     handleOpenModal,
+    deleteEntidad,
+    getDatosRest, // Incluimos getDatosRest aquí
   } = useGrillaHandlers({
     entidad,
     setEntidad,
@@ -65,8 +66,10 @@ function GrillaGenerica<T extends Base>({
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   useEffect(() => {
-    getDatosRest();
-  }, []);
+    if (apiServicio) {
+      getDatosRest();
+    }
+  }, [apiServicio, getDatosRest]);
 
   useEffect(() => {
     setLabels((entidadBase as any).constructor.labels as string[]);
