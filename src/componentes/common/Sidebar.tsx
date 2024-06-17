@@ -1,10 +1,9 @@
 import React from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   cilBalanceScale,
   cilBarChart,
   cilBuilding,
-  cilCart,
   cilFastfood,
   cilPeople,
 } from "@coreui/icons";
@@ -21,14 +20,6 @@ import { cilDollar } from "@coreui/icons";
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-
-  // Obtener el idEmpresa de la URL
-  const urlParts = location.pathname.split("/");
-  const empresaId = urlParts[urlParts.length - 1];
-  const handleTabChange = (section: string) => {
-    navigate(`/${section}/empresas/${empresaId}`);
-  };
 
   const shouldShowSidebar = !["/"].includes(location.pathname);
 
@@ -45,25 +36,25 @@ const Sidebar: React.FC = () => {
         <CSidebarNav>
           <CNavTitle>Menu</CNavTitle>
           <CNavItem>
-            <Link to={`/empresas/inicio/${empresaId}`} className="nav-link">
+            <Link to={`/inicio`} className="nav-link">
               <CIcon customClassName="nav-icon" icon={cilBarChart} />
               Inicio
             </Link>
           </CNavItem>
           <CNavItem>
-            <Link to={`/sucursales/empresas/${empresaId}`} className="nav-link">
+            <Link to={`/sucursales`} className="nav-link">
               <CIcon customClassName="nav-icon" icon={cilFastfood} />
               Sucursales
             </Link>
           </CNavItem>
           <CNavItem>
-            <Link to={`/empresas/categorias/${empresaId}`} className="nav-link">
+            <Link to={`/categorias`} className="nav-link">
               <CIcon customClassName="nav-icon" icon={cilPeople} />
               Categorías
             </Link>
           </CNavItem>
           <CNavItem>
-            <Link to={`/empresas/clientes/${empresaId}`} className="nav-link">
+            <Link to={`/clientes`} className="nav-link">
               <CIcon customClassName="nav-icon" icon={cilBuilding} />
               Clientes
             </Link>
@@ -78,7 +69,7 @@ const Sidebar: React.FC = () => {
           >
             <CNavItem>
               <Link
-                to={`/manufacturados/empresas/${empresaId}`}
+                to={`/manufacturados`}
                 className="nav-link"
               >
                 <span className="nav-icon">
@@ -88,7 +79,7 @@ const Sidebar: React.FC = () => {
               </Link>
             </CNavItem>
             <CNavItem>
-              <Link to={`/empresas/insumos/${empresaId}`} className="nav-link">
+              <Link to={`/insumos`} className="nav-link">
                 <span className="nav-icon">
                   <span className="nav-icon-bullet"></span>
                 </span>
@@ -99,7 +90,7 @@ const Sidebar: React.FC = () => {
 
           <CNavItem>
             <Link
-              to={`/empresas/promociones/${empresaId}`}
+              to={`/promociones`}
               className="nav-link"
             >
               <CIcon customClassName="nav-icon" icon={cilDollar} />
@@ -117,7 +108,7 @@ const Sidebar: React.FC = () => {
           >
             <CNavItem>
               <Link
-                to={`/empresas/empleados/${empresaId}`}
+                to={`/empleados`}
                 className="nav-link"
               >
                 <span className="nav-icon">
@@ -127,7 +118,7 @@ const Sidebar: React.FC = () => {
               </Link>
             </CNavItem>
             <CNavItem>
-              <Link to={`/empresas/roles/${empresaId}`} className="nav-link">
+              <Link to={`/roles`} className="nav-link">
                 <span className="nav-icon">
                   <span className="nav-icon-bullet"></span>
                 </span>
@@ -138,7 +129,7 @@ const Sidebar: React.FC = () => {
          
           <CNavItem>
             <Link
-              to={`unidadMedida/empresas/${empresaId}`}
+              to={`/unidadMedida`}
               className="nav-link"
             >
               <CIcon customClassName="nav-icon" icon={cilBalanceScale} />

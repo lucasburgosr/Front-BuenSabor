@@ -31,14 +31,14 @@ function CardGenericaCard<T extends Base>({
               justifyContent: "center",
               alignItems: "center",
 
-              padding: "1%", // Espaciado interno
+              padding: "1%",
             }}
             key={entidadI.id}
             className="col"
             onClick={() => onClick && onClick(entidadI)}
           >
             <Link
-              to={`/empresas/inicio/`}
+              to={`/inicio`}
               style={{ textDecoration: "none", color: "inherit" }}
             >
               <div

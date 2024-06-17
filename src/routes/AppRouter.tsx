@@ -11,6 +11,7 @@ import Navbar from "../componentes/common/NavBar";
 import Sidebar from "../componentes/common/Sidebar";
 import Empresas from "../screens/empresas/Empresas";
 import { AuthenticationGuard } from "../componentes/auth0/AuthenticationGuard";
+import Empleados from "../screens/empleados/Empleados";
 
 const AppRouter: React.FC = () => {
   return (
@@ -24,31 +25,35 @@ const AppRouter: React.FC = () => {
           <Routes>
             <Route path="/" element={<Empresas />} />
             <Route
-              path="/empresas/inicio/"
+              path="/inicio"
               element={<AuthenticationGuard component={Inicio} />}
             />
             <Route
-              path="/manufacturados/empresas/"
+              path="/manufacturados"
               element={<AuthenticationGuard component={Manufacturados} />}
             />
             <Route
-              path="/empresas/insumos/"
+              path="/insumos"
               element={<AuthenticationGuard component={Insumo} />}
             />
             <Route
-              path="/empresas/categorias/"
+              path="/categorias"
               element={<AuthenticationGuard component={Categoria} />}
             />
             <Route
-              path="/empresas/promociones/"
+              path="/promociones"
               element={<AuthenticationGuard component={Promocion} />}
             />
             <Route
-              path="/sucursales/empresas/"
+              path="/sucursales"
               element={<AuthenticationGuard component={Sucursales} />}
             />
             <Route
-              path="/unidadMedida/empresas/"
+              path="/empleados"
+              element={<AuthenticationGuard component={Empleados} />}
+            />
+            <Route
+              path="/unidadMedida"
               element={<AuthenticationGuard component={UnidadMedida} />}
             />
           </Routes>
