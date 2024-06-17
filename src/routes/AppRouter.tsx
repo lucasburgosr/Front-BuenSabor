@@ -1,21 +1,20 @@
+// src/routes/AppRouter.tsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import Inicio from "../screens/inicio/Inicio";
 import Manufacturados from "../screens/manufacturados/Manufacturados";
-
 import Insumo from "../screens/insumos/Insumos";
 import UnidadMedida from "../screens/UnidadMedida/UnidadMedidaForm";
 import Categoria from "../screens/categorias/Categorias";
-/* import Clientes from "../screens/clientes/Clientes"; */
 import Promocion from "../screens/promociones/Promociones";
 import Sucursales from "../screens/sucursales/Sucursales";
 import Navbar from "../componentes/common/NavBar";
 import Sidebar from "../componentes/common/Sidebar";
 import Empresas from "../screens/empresas/Empresas";
+import { AuthenticationGuard } from "../componentes/auth0/AuthenticationGuard";
 
 const AppRouter: React.FC = () => {
   return (
-    <Router>
+    <>
       <div style={{ width: "100%" }}>
         <Navbar />
       </div>
@@ -23,24 +22,39 @@ const AppRouter: React.FC = () => {
         <Sidebar />
         <div style={{ flexGrow: 1 }}>
           <Routes>
-            {/* Redirecciona la ruta raíz a /empresas */}
             <Route path="/" element={<Empresas />} />
-            <Route path="/empresas/inicio/" element={<Inicio />} />
+            <Route
+              path="/empresas/inicio/"
+              element={<AuthenticationGuard component={Inicio} />}
+            />
             <Route
               path="/manufacturados/empresas/"
-              element={<Manufacturados />}
+              element={<AuthenticationGuard component={Manufacturados} />}
             />
-            <Route path="/empresas/insumos/" element={<Insumo />} />
-            <Route path="/empresas/categorias/" element={<Categoria />} />
-            {/* <Route path="/empresas/clientes/:idEmpresa" element={<Clientes />} /> */}
-            <Route path="/empresas/promociones/" element={<Promocion />} />
-            <Route path="/sucursales/empresas/" element={<Sucursales />} />
-            <Route path="/unidadMedida/empresas/" element={<UnidadMedida />} />
-            {/* <Route path="/empleados" element={<Empleado />} /> */}
+            <Route
+              path="/empresas/insumos/"
+              element={<AuthenticationGuard component={Insumo} />}
+            />
+            <Route
+              path="/empresas/categorias/"
+              element={<AuthenticationGuard component={Categoria} />}
+            />
+            <Route
+              path="/empresas/promociones/"
+              element={<AuthenticationGuard component={Promocion} />}
+            />
+            <Route
+              path="/sucursales/empresas/"
+              element={<AuthenticationGuard component={Sucursales} />}
+            />
+            <Route
+              path="/unidadMedida/empresas/"
+              element={<AuthenticationGuard component={UnidadMedida} />}
+            />
           </Routes>
         </div>
       </div>
-    </Router>
+    </>
   );
 };
 

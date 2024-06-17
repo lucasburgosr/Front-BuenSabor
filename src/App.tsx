@@ -1,5 +1,6 @@
 import React from "react";
 import AppRouter from "../src/routes/AppRouter";
+import { empleadoSlice } from "./redux/slices/slicesUnificados";
 
 const App: React.FC = () => {
   return (

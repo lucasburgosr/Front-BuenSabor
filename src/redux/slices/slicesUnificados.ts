@@ -8,6 +8,7 @@ import { createEntitySlice } from "../../utils/crearSlice";
 import ArticuloManufacturado from "../../entidades/ArticuloManufacturado";
 import Sucursal from "../../entidades/Sucursal";
 import UnidadMedida from "../../entidades/UnidadMedida";
+import Usuario from "../../entidades/Usuario";
 
 // Crea los slices para cada entidad
 export const empleadoSlice = createEntitySlice<Empleado>("empleado");
@@ -15,6 +16,7 @@ export const empresaSlice = createEntitySlice<Empresa>("empresa");
 export const categoriaSlice = createEntitySlice<Categoria>("categoria");
 export const promocionSlice = createEntitySlice<Promocion>("promocion");
 export const articuloInsumoSlice = createEntitySlice<ArticuloInsumo>("insumo");
+export const usuarioSlice = createEntitySlice<Usuario>("usuario");
 export const articuloManufacturadoSlice =
   createEntitySlice<ArticuloManufacturado>("manufacturado");
 export const sucursalSlice = createEntitySlice<Sucursal>("sucursal");
@@ -48,6 +50,12 @@ export const {
   resetEntities: resetUnidadMedida,
 } = unidadMedidaSlice.actions;
 
+export const {
+  setEntities: setUsuario,
+  resetEntities: resetUsuario,
+  selectEntity: selectUsuario,
+} = usuarioSlice.actions;
+
 // Combinación de reducers
 const rootReducer = {
   empleado: empleadoSlice.reducer,
@@ -58,6 +66,7 @@ const rootReducer = {
   articuloManufacturado: articuloManufacturadoSlice.reducer,
   sucursal: sucursalSlice.reducer,
   unidadMedida: unidadMedidaSlice.reducer,
+  usuario: usuarioSlice.reducer,
 };
 
 export default rootReducer;
