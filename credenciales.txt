@@ -1,3 +1,4 @@
+Superadministrador: superadministrador@gmail.com Superadmin123
 Administrador: administrador@gmail.com Admin123
 Cocinero: cocinero@gmail.com Cocinero123
 Cajero: cajero@gmail.com Cajero123

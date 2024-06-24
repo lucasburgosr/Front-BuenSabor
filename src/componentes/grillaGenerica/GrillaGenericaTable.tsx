@@ -1,8 +1,8 @@
-// src/componentes/grillaGenerica/GrillaGenericaTable.tsx
 import Base from "../../entidades/Base";
 import Domicilio from "../../entidades/Domicilio";
 import { Button } from "@mui/material";
 import Paper from "@mui/material/Paper";
+import { useAppSelector } from "../../redux/hooks";
 
 export type GrillaGenericaTableProps<T> = {
   entidades: T[];
@@ -29,6 +29,10 @@ function GrillaGenericaTable<T extends Base>({
   deleteEntidad,
   sinEditar,
 }: GrillaGenericaTableProps<T>) {
+  const empleado = useAppSelector((state) => state.empleado.selectedEntity)
+  const userRole = empleado.rol;
+  const canEdit = ["ADMIN", "SUPERADMIN"].includes(userRole);
+
   return (
     <div
       style={{
@@ -67,7 +71,7 @@ function GrillaGenericaTable<T extends Base>({
                     </div>
                   </th>
                 ))}
-              {!sinEditar && (
+              {canEdit && !sinEditar && (
                 <th
                   style={{ textAlign: "center", backgroundColor: "#a6c732", fontWeight: 'normal' }}
                   scope="col"
@@ -75,12 +79,14 @@ function GrillaGenericaTable<T extends Base>({
                   <b>Modificar</b>
                 </th>
               )}
-              <th
-                style={{ textAlign: "center", backgroundColor: "#a6c732", fontWeight: 'normal' }}
-                scope="col"
-              >
-                <b>Eliminar</b>
-              </th>
+              {canEdit && (
+                <th
+                  style={{ textAlign: "center", backgroundColor: "#a6c732", fontWeight: 'normal' }}
+                  scope="col"
+                >
+                  <b>Eliminar</b>
+                </th>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -162,7 +168,7 @@ function GrillaGenericaTable<T extends Base>({
                     </td>
                   ))}
 
-                  {!sinEditar && (
+                  {canEdit && !sinEditar && (
                     <td style={{ backgroundColor: '#e0ebc2' }}>
                       <div style={{ backgroundColor: '#e0ebc2' }}>
                         <Button
@@ -184,23 +190,25 @@ function GrillaGenericaTable<T extends Base>({
                     </td>
                   )}
 
-                  <td style={{ backgroundColor: '#e0ebc2' }}>
-                    <div style={{ backgroundColor: '#e0ebc2' }}>
-                      <Button
-                        style={{
-                          letterSpacing: "1px",
-                          fontWeight: "bold",
-                          backgroundColor: "#e05151",
-                        }}
-                        className="custom-button"
-                        variant="contained"
-                        color="primary"
-                        onClick={() => deleteEntidad(entidadI.id)}
-                      >
-                        Eliminar
-                      </Button>
-                    </div>
-                  </td>
+                  {canEdit && (
+                    <td style={{ backgroundColor: '#e0ebc2' }}>
+                      <div style={{ backgroundColor: '#e0ebc2' }}>
+                        <Button
+                          style={{
+                            letterSpacing: "1px",
+                            fontWeight: "bold",
+                            backgroundColor: "#e05151",
+                          }}
+                          className="custom-button"
+                          variant="contained"
+                          color="primary"
+                          onClick={() => deleteEntidad(entidadI.id)}
+                        >
+                          Eliminar
+                        </Button>
+                      </div>
+                    </td>
+                  )}
                 </tr>
               ))}
           </tbody>

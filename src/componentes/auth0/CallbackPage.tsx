@@ -1,21 +1,22 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useAppSelector } from '../../redux/hooks';
 
 const CallbackPage = () => {
   const { isAuthenticated, user } = useAuth0();
   const navigate = useNavigate();
+  const empleado = useAppSelector((state) => state.empleado.selectedEntity);
 
   useEffect(() => {
-    if (isAuthenticated && user) {
-      // Aquí puedes poner la lógica para redirigir a una ruta según el rol del usuario
-      navigate('/inicio'); // O la ruta que desees
+    if (isAuthenticated && user && empleado.rol !== "SUPERADMIN" && empleado.rol !== "ADMIN") {
+      navigate('/inicio');
     } else {
-      navigate('/'); // O la ruta de login si no está autenticado
+      navigate('/');
     }
   }, [isAuthenticated, user, navigate]);
 
-  return <div>Loading...</div>; // Puedes mostrar un indicador de carga aquí
+  return <div>Loading...</div>;
 };
 
 export default CallbackPage;

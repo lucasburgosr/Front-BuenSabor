@@ -49,7 +49,7 @@ const AppRouter: React.FC = () => {
             />
             <Route
               path="/sucursales"
-              element={<PrivateRoute component={Sucursales} allowedRoles={["SUPERADMIN", "ADMIN", "DELIVERY"]} />}
+              element={<PrivateRoute component={Sucursales} allowedRoles={["SUPERADMIN", "ADMIN", "DELIVERY", "CAJERO", "COCINERO"]} />}
             />
             <Route
               path="/empleados"

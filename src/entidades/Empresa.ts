@@ -10,5 +10,5 @@ export default class Empresa extends Base {
     sucursales:Sucursal[] = [];
 
     static nombre:string = "Empresa";
-    static labels:string[] = ["Id", "Nombre", "Razón social", "Cuil", "Imágen"]
+    static labels:string[] = ["Id", "Nombre", "Razón social", "Cuil", "Imágen", "Sucursales"]
 }

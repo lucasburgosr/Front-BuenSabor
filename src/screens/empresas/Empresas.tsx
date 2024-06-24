@@ -3,11 +3,15 @@ import EmpresaService from "../../servicios/EmpresaService";
 import CardGenerica from "../../componentes/cardGenerica/CardGenerica";
 import { useDispatch } from "react-redux";
 import { selectEmpresa } from "../../redux/slices/slicesUnificados";
+import { useAppSelector } from "../../redux/hooks";
 
 const Empresas: React.FC = () => {
 
   const empresa = new Empresa();
   const empresaBase = new Empresa();
+
+  const empleado = useAppSelector((state) => state.empleado.selectedEntity);
+  const userRole = empleado.rol;
 
   const urlapi = import.meta.env.VITE_API_URL;
   const empresasService = new EmpresaService(urlapi + "/empresas");
@@ -25,6 +29,7 @@ const Empresas: React.FC = () => {
         entidadBase={empresaBase}
         apiServicio={empresasService}
         onClick={handleEmpresaClick}
+        userRole={userRole}
       />
     </div>
   );

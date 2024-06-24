@@ -48,7 +48,7 @@ const Sidebar: React.FC = () => {
               </Link>
             </CNavItem>
           )}
-          {(userRole === "SUPERADMIN" || userRole === "ADMIN" || userRole === "DELIVERY") && (
+          {(userRole === "SUPERADMIN" || userRole === "ADMIN" || userRole === "DELIVERY" || userRole === "COCINERO" || userRole === "CAJERO") && (
             <CNavItem>
               <Link to={`/sucursales`} className="nav-link">
                 <CIcon customClassName="nav-icon" icon={cilFastfood} />

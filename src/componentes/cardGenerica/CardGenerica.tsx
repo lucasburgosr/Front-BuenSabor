@@ -1,14 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { Add } from "@mui/icons-material";
+import { Box, Button } from "@mui/material";
+import { useState, useRef, useEffect } from "react";
 import Base from "../../entidades/Base";
-import FormularioGenerico from "../formularioGenerico/FormularioGenerico";
-import BackendClient from "../../servicios/BackendClient";
 import { usePedidos } from "../../hooks/usePedidos";
+import BackendClient from "../../servicios/BackendClient";
+import FormularioGenerico from "../formularioGenerico/FormularioGenerico";
+import useGrillaHandlers from "../grillaGenerica/useGrillaHandler";
 import ModalGenerico from "../modalGenerico/ModalGenerico";
 import CardGenericaCard from "./CardGenericaCard";
-import useGrillaHandlers from "../grillaGenerica/useGrillaHandler";
-import { Add } from "@mui/icons-material";
-import { Box,Button } from "@mui/material";
-
 
 type ListArgs<T extends Base> = {
   entidadPrevia: T;
@@ -18,6 +17,7 @@ type ListArgs<T extends Base> = {
   sinNuevo?: boolean;
   sinEditar?: boolean;
   onClick?: (entidad: T) => void; // Nuevo prop onClick
+  userRole: string; // Nuevo prop userRole
 };
 
 function CardGenerica<T extends Base>({
@@ -27,6 +27,7 @@ function CardGenerica<T extends Base>({
   listaSelects = {},
   sinEditar = false,
   onClick,
+  userRole, // Recibir el prop userRole
 }: ListArgs<T>) {
   const [entidad, setEntidad] = useState<T>(entidadPrevia);
   const [entidades, setEntidades] = useState<T[]>([]);
@@ -74,9 +75,7 @@ function CardGenerica<T extends Base>({
 
       {modalPedidos}
 
-      <div
-
-      >
+      <div>
         <CardGenericaCard
           entidades={entidades}
           labels={labels}
@@ -90,34 +89,34 @@ function CardGenerica<T extends Base>({
         />
       </div>
      
-      <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-       width:"100%",
-        height: "30%", // Opcional: ajustar la altura del contenedor
-      }}
-    >
-      <Button
-        onClick={() => handleOpenModal(0)}
-        sx={{
-          bgcolor: "#a6c732",
-          "&:hover": {
-            bgcolor: "#a0b750",
-          },
-          my: 3,
-          width: "5%",
-          height: "30%", // Ajustar la altura del botón
-        }}
-        variant="contained"
-        startIcon={<Add />}
-      >
-        Nuevo
-      </Button>
-    </Box>
-        
+      {userRole === "SUPERADMIN" && (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            width:"100%",
+            height: "30%", // Opcional: ajustar la altura del contenedor
+          }}
+        >
+          <Button
+            onClick={() => handleOpenModal(0)}
+            sx={{
+              bgcolor: "#a6c732",
+              "&:hover": {
+                bgcolor: "#a0b750",
+              },
+              my: 3,
+              width: "5%",
+              height: "30%", // Ajustar la altura del botón
+            }}
+            variant="contained"
+            startIcon={<Add />}
+          >
+            Nuevo
+          </Button>
+        </Box>
+      )}
     </>
-    
   );
 }
 
