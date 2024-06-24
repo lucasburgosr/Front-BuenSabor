@@ -27,7 +27,7 @@ export default function Manufacturados() {
     return (
         
     <div className="m-3">
-        <GrillaGenerica entidadPrevia={manufacturado} entidadBase={manufacturadoBase} apiServicio={articuloManufacturadoService} listaSelects={{'unidadMedida':[unidadesMedida, modalUnidadesMedida], 'categoria':[categorias, modalCategorias]}} />
+        <GrillaGenerica entidadPrevia={manufacturado} entidadBase={manufacturadoBase} apiServicio={articuloManufacturadoService} listaSelects={{ 'unidadMedida': [unidadesMedida, modalUnidadesMedida], 'categoria': [categorias, modalCategorias] }} data={[]} />
     </div>
 
     )

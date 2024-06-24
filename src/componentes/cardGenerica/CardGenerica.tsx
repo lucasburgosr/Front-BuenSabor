@@ -25,7 +25,6 @@ function CardGenerica<T extends Base>({
   entidadBase,
   apiServicio,
   listaSelects = {},
-  sinNuevo = false,
   sinEditar = false,
   onClick,
 }: ListArgs<T>) {

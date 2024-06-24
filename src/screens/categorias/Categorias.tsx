@@ -7,8 +7,6 @@ import CategoriasForm from "./CategoriasForm";
 
 export default function Categorias() {
   const {
-    empresas,
-    modalEmpresas,
     getEmpresasRest,
     setNombreApartado,
     setCategorias,

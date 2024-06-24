@@ -12,7 +12,7 @@ export default function Pedidos() {
     return (
         
     <div className="m-3">
-        <GrillaGenerica entidadPrevia={pedido} entidadBase={pedidoBase} apiServicio={pedidoService} sinNuevo sinEditar/>
+        <GrillaGenerica entidadPrevia={pedido} entidadBase={pedidoBase} apiServicio={pedidoService} sinNuevo sinEditar data={[]}/>
     </div>
 
     )

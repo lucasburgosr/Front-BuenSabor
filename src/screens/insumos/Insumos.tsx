@@ -23,7 +23,7 @@ export default function Insumos() {
     return (
         
     <div className="m-3">
-        <GrillaGenerica entidadPrevia={insumo} entidadBase={insumoBase} apiServicio={articuloInsumoService} listaSelects={{'unidadMedida':[unidadesMedida, modalUnidadesMedida], 'categoria':[categorias, modalCategorias]}} />
+        <GrillaGenerica entidadPrevia={insumo} entidadBase={insumoBase} apiServicio={articuloInsumoService} listaSelects={{ 'unidadMedida': [unidadesMedida, modalUnidadesMedida], 'categoria': [categorias, modalCategorias] }} data={[]} />
     </div>
 
     )

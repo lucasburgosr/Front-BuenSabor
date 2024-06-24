@@ -1,7 +1,6 @@
 import { ChangeEvent, useCallback, RefObject } from 'react';
 import BackendClient from "../../servicios/BackendClient";
 import Base from '../../entidades/Base';
-import ArticuloInsumo from '../../entidades/ArticuloInsumo';
 
 export type UseGrillaHandlersProps<T> = {
   entidad: T,
@@ -22,26 +21,10 @@ function useGrillaHandlers<T extends Base>({
   entidades,
   setEntidades,
   apiServicio,
-  categoria,
   setCategoria,
-  listaSelects,
   entidadBase,
   modalRef
 }: UseGrillaHandlersProps<T>) {
-
-  const cleanArticuloInsumo = (articuloInsumo: ArticuloInsumo): any => {
-    const { type, ...cleanedArticuloInsumo } = articuloInsumo;
-    return cleanedArticuloInsumo;
-  };
-
-  const cleanArticuloManufacturadoDetalles = (detalles: any[]): any[] => {
-    return detalles.map(detalle => {
-      if (detalle.articuloInsumo) {
-        detalle.articuloInsumo = cleanArticuloInsumo(detalle.articuloInsumo);
-      }
-      return detalle;
-    });
-  };
 
   const cleanData = (data: any): any => {
     const cleanedData = JSON.parse(JSON.stringify(data));
