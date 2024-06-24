@@ -1,13 +1,10 @@
-import { useEffect } from "react";
 import Empresa from "../../entidades/Empresa";
-import { useAtributos } from "../../hooks/useAtributos";
 import EmpresaService from "../../servicios/EmpresaService";
 import CardGenerica from "../../componentes/cardGenerica/CardGenerica";
 import { useDispatch } from "react-redux";
 import { selectEmpresa } from "../../redux/slices/slicesUnificados";
 
 const Empresas: React.FC = () => {
-  const { setNombreApartado } = useAtributos();
 
   const empresa = new Empresa();
   const empresaBase = new Empresa();
@@ -21,10 +18,6 @@ const Empresas: React.FC = () => {
     dispatch(selectEmpresa(empresa));
   }
 
-  useEffect(() => {
-    setNombreApartado("Empresas");
-  }, []);
-
   return (
     <div className="m-3">
       <CardGenerica
@@ -33,9 +26,7 @@ const Empresas: React.FC = () => {
         apiServicio={empresasService}
         onClick={handleEmpresaClick}
       />
-    
     </div>
-
   );
 };
 

@@ -1,6 +1,5 @@
 import Base from "./Base";
 import Domicilio from "./Domicilio";
-import Empleado from "./Empleado";
 import Empresa from "./Empresa";
 import Promocion from "./Promocion";
 

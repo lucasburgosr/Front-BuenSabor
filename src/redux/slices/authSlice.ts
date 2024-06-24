@@ -1,35 +1,38 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import Empleado from "../../entidades/Empleado";
 
 interface UserState {
-  user: any | null;
-  rol: "SUPERADMIN" | "ADMIN" | "COCINERO" | "DELIVERY" | "CAJERO" | any
+  empleado: Empleado | null;
+  login: boolean;
   loading: boolean;
 }
 
 const initialState: UserState = {
-  user: null,
+  empleado: null,
+  login: false,
   loading: true,
-  rol: ""
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<any>) => {
-      state.user = action.payload;
-      state.loading = false;
-    },
-    clearUser: (state) => {
-      state.user = null;
-      state.loading = false;
+    setEmpleado: (state, action: PayloadAction<any>) => {
+      state.empleado = action.payload;
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
+    logout: (state) => {
+      state.login = false;
+      state.empleado = null;
+    },
+    login: (state) => {
+      state.login = true;
+    },
   },
 });
 
-export const { setUser, clearUser, setLoading } = authSlice.actions;
+export const { setEmpleado, login, logout, setLoading } = authSlice.actions;
 
 export default authSlice.reducer;

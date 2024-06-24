@@ -1,7 +1,8 @@
 export enum Rol {
-   Administrador,
-   Cajero,
-   Cliente,
-   Cocinero,
-   Delivery
+   ADMIN,
+   CAJERO,
+   CLIENTE,
+   COCINERO,
+   SUPERADMIN,
+   DELIVERY
 }

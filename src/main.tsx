@@ -9,13 +9,13 @@ import { Auth0ProviderWithNavigate } from "./componentes/auth0/Auth0ProviderWith
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <Auth0ProviderWithNavigate>
-        <AtributosContextProvider>
+      <AtributosContextProvider>
+        <Auth0ProviderWithNavigate>
           <Provider store={store}>
             <App />
           </Provider>
-        </AtributosContextProvider>
-      </Auth0ProviderWithNavigate>
+        </Auth0ProviderWithNavigate>
+      </AtributosContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

@@ -1,5 +1,4 @@
-// src/routes/AppRouter.tsx
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Inicio from "../screens/inicio/Inicio";
 import Manufacturados from "../screens/manufacturados/Manufacturados";
 import Insumo from "../screens/insumos/Insumos";
@@ -10,10 +9,13 @@ import Sucursales from "../screens/sucursales/Sucursales";
 import Navbar from "../componentes/common/NavBar";
 import Sidebar from "../componentes/common/Sidebar";
 import Empresas from "../screens/empresas/Empresas";
-import { AuthenticationGuard } from "../componentes/auth0/AuthenticationGuard";
+import PrivateRoute from "../componentes/auth0/PrivateRoute";
 import Empleados from "../screens/empleados/Empleados";
+import CallbackPage from "../componentes/auth0/CallbackPage";
 
 const AppRouter: React.FC = () => {
+
+
   return (
     <>
       <div style={{ width: "100%" }}>
@@ -23,38 +25,39 @@ const AppRouter: React.FC = () => {
         <Sidebar />
         <div style={{ flexGrow: 1 }}>
           <Routes>
-            <Route path="/" element={<Empresas />} />
+            <Route path="/callback" element={<CallbackPage />} /> {/* Maneja la ruta /callback */}
+            <Route path="/" element={<PrivateRoute component={Empresas} allowedRoles={["SUPERADMIN", "ADMIN", "CAJERO", "DELIVERY", "COCINERO"]} />} />
             <Route
               path="/inicio"
-              element={<AuthenticationGuard component={Inicio} />}
+              element={<PrivateRoute component={Inicio} allowedRoles={["SUPERADMIN", "ADMIN", "CAJERO"]} />}
             />
             <Route
               path="/manufacturados"
-              element={<AuthenticationGuard component={Manufacturados} />}
+              element={<PrivateRoute component={Manufacturados} allowedRoles={["SUPERADMIN", "ADMIN", "COCINERO", "CAJERO"]} />}
             />
             <Route
               path="/insumos"
-              element={<AuthenticationGuard component={Insumo} />}
+              element={<PrivateRoute component={Insumo} allowedRoles={["SUPERADMIN", "ADMIN", "COCINERO", "CAJERO"]} />}
             />
             <Route
               path="/categorias"
-              element={<AuthenticationGuard component={Categoria} />}
+              element={<PrivateRoute component={Categoria} allowedRoles={["SUPERADMIN", "ADMIN"]} />}
             />
             <Route
               path="/promociones"
-              element={<AuthenticationGuard component={Promocion} />}
+              element={<PrivateRoute component={Promocion} allowedRoles={["SUPERADMIN", "ADMIN"]} />}
             />
             <Route
               path="/sucursales"
-              element={<AuthenticationGuard component={Sucursales} />}
+              element={<PrivateRoute component={Sucursales} allowedRoles={["SUPERADMIN", "ADMIN", "DELIVERY"]} />}
             />
             <Route
               path="/empleados"
-              element={<AuthenticationGuard component={Empleados} />}
+              element={<PrivateRoute component={Empleados} allowedRoles={["SUPERADMIN", "ADMIN"]} />}
             />
             <Route
               path="/unidadMedida"
-              element={<AuthenticationGuard component={UnidadMedida} />}
+              element={<PrivateRoute component={UnidadMedida} allowedRoles={["SUPERADMIN", "ADMIN"]} />}
             />
           </Routes>
         </div>

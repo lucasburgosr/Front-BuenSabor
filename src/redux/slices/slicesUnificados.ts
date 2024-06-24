@@ -1,4 +1,3 @@
-// src/redux/slices/slicesUnificados.ts
 import Categoria from "../../entidades/Categoria";
 import Empleado from "../../entidades/Empleado";
 import Empresa from "../../entidades/Empresa";
@@ -24,7 +23,7 @@ export const unidadMedidaSlice =
   createEntitySlice<UnidadMedida>("unidadMedida");
 
 // Exporta las acciones y el reducer de cada slice
-export const { setEntities: setEmpleado, resetEntities: resetEmpleado } =
+export const { setEntities: setEmpleado, resetEntities: resetEmpleado, selectEntity: selectEmpleado } =
   empleadoSlice.actions;
 export const {
   setEntities: setEmpresa,
@@ -43,7 +42,7 @@ export const {
   setEntities: setArticuloManufacturado,
   resetEntities: resetArticuloManufacturado,
 } = articuloManufacturadoSlice.actions;
-export const { setEntities: setSucursal, resetEntities: resetSucursal } =
+export const { setEntities: setSucursal, resetEntities: resetSucursal, selectEntity: selectSucursal } =
   sucursalSlice.actions;
 export const {
   setEntities: setUnidadMedida,
