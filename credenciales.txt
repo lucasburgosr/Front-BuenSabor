@@ -1,0 +1,4 @@
+Administrador: administrador@gmail.com Admin123
+Cocinero: cocinero@gmail.com Cocinero123
+Cajero: cajero@gmail.com Cajero123
+Delivery: delivery@gmail.com Delivery123
