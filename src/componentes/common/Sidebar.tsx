@@ -120,32 +120,14 @@ const Sidebar: React.FC = () => {
             </CNavItem>
           )}
           {(userRole === "SUPERADMIN" || userRole === "ADMIN") && (
-            <CNavGroup
-              toggler={
-                <>
-                  <CIcon customClassName="nav-icon" icon={cilPeople} />
-                  Empleados
-                </>
-              }
-            >
-              <CNavItem>
-                <Link to={`/empleados`} className="nav-link">
-                  <span className="nav-icon">
-                    <span className="nav-icon-bullet"></span>
-                  </span>
-                  Lista de Empleados
-                </Link>
-              </CNavItem>
-              <CNavItem>
-                <Link to={`/roles`} className="nav-link">
-                  <span className="nav-icon">
-                    <span className="nav-icon-bullet"></span>
-                  </span>
-                  Roles
-                </Link>
-              </CNavItem>
-            </CNavGroup>
+            <CNavItem>
+              <Link to={`/empleados`} className="nav-link">
+                <CIcon customClassName="nav-icon" icon={cilDollar} />
+                Empleados
+              </Link>
+            </CNavItem>
           )}
+
           {(userRole === "SUPERADMIN" || userRole === "ADMIN") && (
             <CNavItem>
               <Link to={`/unidadMedida`} className="nav-link">
