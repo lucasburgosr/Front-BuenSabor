@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import {
   cilBalanceScale,
   cilBarChart,
-  cilBuilding,
   cilFastfood,
   cilPeople,
 } from "@coreui/icons";
@@ -23,7 +22,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
-  const userRole = useSelector((state: RootState) => state.empleado.selectedEntity.rol);
+  const userRole = useSelector(
+    (state: RootState) => state.empleado.selectedEntity.rol
+  );
   const isAuthenticated = useAuth0();
 
   const shouldShowSidebar = !["/"].includes(location.pathname);
@@ -40,7 +41,9 @@ const Sidebar: React.FC = () => {
       >
         <CSidebarNav>
           <CNavTitle>Menu</CNavTitle>
-          {(userRole === "SUPERADMIN" || userRole === "ADMIN" || userRole === "CAJERO") && (
+          {(userRole === "SUPERADMIN" ||
+            userRole === "ADMIN" ||
+            userRole === "CAJERO") && (
             <CNavItem>
               <Link to={`/inicio`} className="nav-link">
                 <CIcon customClassName="nav-icon" icon={cilBarChart} />
@@ -48,7 +51,11 @@ const Sidebar: React.FC = () => {
               </Link>
             </CNavItem>
           )}
-          {(userRole === "SUPERADMIN" || userRole === "ADMIN" || userRole === "DELIVERY" || userRole === "COCINERO" || userRole === "CAJERO") && (
+          {(userRole === "SUPERADMIN" ||
+            userRole === "ADMIN" ||
+            userRole === "DELIVERY" ||
+            userRole === "COCINERO" ||
+            userRole === "CAJERO") && (
             <CNavItem>
               <Link to={`/sucursales`} className="nav-link">
                 <CIcon customClassName="nav-icon" icon={cilFastfood} />
@@ -64,15 +71,20 @@ const Sidebar: React.FC = () => {
               </Link>
             </CNavItem>
           )}
-          {(userRole === "SUPERADMIN" || userRole === "ADMIN" || userRole === "DELIVERY") && (
+          {/* {(userRole === "SUPERADMIN" ||
+            userRole === "ADMIN" ||
+            userRole === "DELIVERY") && (
             <CNavItem>
               <Link to={`/clientes`} className="nav-link">
                 <CIcon customClassName="nav-icon" icon={cilBuilding} />
                 Clientes
               </Link>
             </CNavItem>
-          )}
-          {(userRole === "SUPERADMIN" || userRole === "ADMIN" || userRole === "COCINERO" || userRole === "CAJERO") && (
+          )} */}
+          {(userRole === "SUPERADMIN" ||
+            userRole === "ADMIN" ||
+            userRole === "COCINERO" ||
+            userRole === "CAJERO") && (
             <CNavGroup
               toggler={
                 <>

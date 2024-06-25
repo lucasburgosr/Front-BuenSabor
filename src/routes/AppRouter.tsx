@@ -14,8 +14,6 @@ import Empleados from "../screens/empleados/Empleados";
 import CallbackPage from "../componentes/auth0/CallbackPage";
 
 const AppRouter: React.FC = () => {
-
-
   return (
     <>
       <div style={{ width: "100%" }}>
@@ -25,39 +23,100 @@ const AppRouter: React.FC = () => {
         <Sidebar />
         <div style={{ flexGrow: 1 }}>
           <Routes>
-            <Route path="/callback" element={<CallbackPage />} /> {/* Maneja la ruta /callback */}
-            <Route path="/" element={<PrivateRoute component={Empresas} allowedRoles={["SUPERADMIN", "ADMIN", "CAJERO", "DELIVERY", "COCINERO"]} />} />
+            <Route path="/callback" element={<CallbackPage />} />{" "}
+            {/* Maneja la ruta /callback */}
+            <Route
+              path="/"
+              element={
+                <PrivateRoute
+                  component={Empresas}
+                  allowedRoles={[
+                    "SUPERADMIN",
+                    "ADMIN",
+                    "CAJERO",
+                    "DELIVERY",
+                    "COCINERO",
+                  ]}
+                />
+              }
+            />
             <Route
               path="/inicio"
-              element={<PrivateRoute component={Inicio} allowedRoles={["SUPERADMIN", "ADMIN", "CAJERO"]} />}
+              element={
+                <PrivateRoute
+                  component={Inicio}
+                  allowedRoles={["SUPERADMIN", "ADMIN", "CAJERO"]}
+                />
+              }
             />
             <Route
               path="/manufacturados"
-              element={<PrivateRoute component={Manufacturados} allowedRoles={["SUPERADMIN", "ADMIN", "COCINERO", "CAJERO"]} />}
+              element={
+                <PrivateRoute
+                  component={Manufacturados}
+                  allowedRoles={["SUPERADMIN", "ADMIN", "COCINERO", "CAJERO"]}
+                />
+              }
             />
             <Route
               path="/insumos"
-              element={<PrivateRoute component={Insumo} allowedRoles={["SUPERADMIN", "ADMIN", "COCINERO", "CAJERO"]} />}
+              element={
+                <PrivateRoute
+                  component={Insumo}
+                  allowedRoles={["SUPERADMIN", "ADMIN", "COCINERO", "CAJERO"]}
+                />
+              }
             />
             <Route
               path="/categorias"
-              element={<PrivateRoute component={Categoria} allowedRoles={["SUPERADMIN", "ADMIN"]} />}
+              element={
+                <PrivateRoute
+                  component={Categoria}
+                  allowedRoles={["SUPERADMIN", "ADMIN"]}
+                />
+              }
             />
             <Route
               path="/promociones"
-              element={<PrivateRoute component={Promocion} allowedRoles={["SUPERADMIN", "ADMIN"]} />}
+              element={
+                <PrivateRoute
+                  component={Promocion}
+                  allowedRoles={["SUPERADMIN", "ADMIN"]}
+                />
+              }
             />
             <Route
               path="/sucursales"
-              element={<PrivateRoute component={Sucursales} allowedRoles={["SUPERADMIN", "ADMIN", "DELIVERY", "CAJERO", "COCINERO"]} />}
+              element={
+                <PrivateRoute
+                  component={Sucursales}
+                  allowedRoles={[
+                    "SUPERADMIN",
+                    "ADMIN",
+                    "DELIVERY",
+                    "CAJERO",
+                    "COCINERO",
+                  ]}
+                />
+              }
             />
             <Route
               path="/empleados"
-              element={<PrivateRoute component={Empleados} allowedRoles={["SUPERADMIN", "ADMIN"]} />}
+              element={
+                <PrivateRoute
+                  component={Empleados}
+                  allowedRoles={["SUPERADMIN", "ADMIN"]}
+                />
+              }
             />
             <Route
               path="/unidadMedida"
-              element={<PrivateRoute component={UnidadMedida} allowedRoles={["SUPERADMIN", "ADMIN"]} />}
+              element={
+                <PrivateRoute
+                  component={UnidadMedida}
+                  allowedRoles={["SUPERADMIN", "ADMIN"]}
+                />
+              }
             />
           </Routes>
         </div>
