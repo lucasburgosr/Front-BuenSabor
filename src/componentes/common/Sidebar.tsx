@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   cilBalanceScale,
   cilBarChart,
@@ -16,21 +16,48 @@ import {
 } from "@coreui/react";
 import "@coreui/coreui/dist/css/coreui.min.css";
 import { cilDollar } from "@coreui/icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store/store";
 import { useAuth0 } from "@auth0/auth0-react";
+import Sucursal from "../../entidades/Sucursal";
+import { selectSucursal } from "../../redux/slices/slicesUnificados";
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const userRole = useSelector(
     (state: RootState) => state.empleado.selectedEntity.rol
   );
   const isAuthenticated = useAuth0();
+  const dispatch = useDispatch();
+
+  const empresaSeleccionada = useSelector(
+    (state: RootState) => state.empresa.selectedEntity
+  );
+  const sucursales: Sucursal[] = empresaSeleccionada
+    ? empresaSeleccionada.sucursales
+    : [];
+
+  const selectedSucursal = useSelector(
+    (state: RootState) => state.sucursal.selectedEntity
+  );
+
+  const handleSucursalChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const selectedId = parseInt(event.target.value, 10); // Asume que los IDs son números
+    const selectedSucursal = sucursales.find(
+      (sucursal) => sucursal.id === selectedId
+    );
+    if (selectedSucursal) {
+      dispatch(selectSucursal(selectedSucursal));
+    }
+  };
 
   const shouldShowSidebar = !["/"].includes(location.pathname);
 
-  if (!shouldShowSidebar || !isAuthenticated || !userRole) {
-    return null; // No renderizar el sidebar si la ruta es '/' o si el usuario no está autenticado o no tiene rol
+  if (!shouldShowSidebar) {
+    return null; // No renderizar el sidebar si la ruta es '/' o si el usuario no está autenticado, no tiene rol, o no hay empresa seleccionada
   }
 
   return (
@@ -41,6 +68,26 @@ const Sidebar: React.FC = () => {
       >
         <CSidebarNav>
           <CNavTitle>Menu</CNavTitle>
+          {/* Selector de Sucursales */}
+          {(userRole === "SUPERADMIN" || userRole === "ADMIN") &&
+            sucursales.length > 0 && (
+              <CNavItem>
+                <select
+                  value={selectedSucursal ? selectedSucursal.id : ""}
+                  onChange={handleSucursalChange}
+                  className="form-select"
+                >
+                  <option value="" disabled>
+                    Seleccione una sucursal
+                  </option>
+                  {sucursales.map((sucursal) => (
+                    <option key={sucursal.id} value={sucursal.id}>
+                      {sucursal.nombre}
+                    </option>
+                  ))}
+                </select>
+              </CNavItem>
+            )}
           {(userRole === "SUPERADMIN" ||
             userRole === "ADMIN" ||
             userRole === "CAJERO") && (
@@ -71,16 +118,6 @@ const Sidebar: React.FC = () => {
               </Link>
             </CNavItem>
           )}
-          {/* {(userRole === "SUPERADMIN" ||
-            userRole === "ADMIN" ||
-            userRole === "DELIVERY") && (
-            <CNavItem>
-              <Link to={`/clientes`} className="nav-link">
-                <CIcon customClassName="nav-icon" icon={cilBuilding} />
-                Clientes
-              </Link>
-            </CNavItem>
-          )} */}
           {(userRole === "SUPERADMIN" ||
             userRole === "ADMIN" ||
             userRole === "COCINERO" ||
@@ -136,11 +173,13 @@ const Sidebar: React.FC = () => {
               </Link>
             </CNavItem>
           )}
-          <CNavItem>
-            <Link to={`/`} className="nav-link">
-              Volver a Empresas
-            </Link>
-          </CNavItem>
+          {(userRole === "SUPERADMIN" || userRole === "ADMIN") && (
+            <CNavItem>
+              <Link to={`/`} className="nav-link">
+                Volver a Empresas
+              </Link>
+            </CNavItem>
+          )}
         </CSidebarNav>
       </CSidebar>
     </div>

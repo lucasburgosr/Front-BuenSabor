@@ -5,6 +5,9 @@ import BasePie from "./BasePie";
 //import BaseBar from "./BaseBar";
 import AllBar from "./AllBar";
 import * as React from "react";
+import { useAppSelector } from "../../redux/hooks";
+import { useDispatch } from "react-redux";
+import { selectEmpresa } from "../../redux/slices/slicesUnificados";
 
 // Contenido para las tarjetas de inicio
 const ProductoContent = {
@@ -36,6 +39,7 @@ const cardStyle = {
 //Renderización del componente
 //<img src="./logo/bienvenido.png" alt="Bienvenido" style={{ display: 'block', margin: 'auto', width: '200px', height: 'auto' }} />
 const Inicio: React.FC = () => {
+
   return (
     <Box
       component="main"

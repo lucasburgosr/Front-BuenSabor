@@ -4,5 +4,5 @@ import Base from "./Base";
 
 export default class PromocionDetalle extends Base {
     cantidad:number = 0;
-    articulo:ArticuloInsumo|ArticuloManufacturado = new ArticuloManufacturado();
+    articulo: ArticuloInsumo | ArticuloManufacturado | undefined;
 }
