@@ -8,7 +8,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import SucursalService from "../../servicios/SucursalService";
 import { useDispatch } from "react-redux";
 import { setCategoria } from "../../redux/slices/slicesUnificados";
-import Categoria from "../../entidades/Categoria";
 
 export default function Manufacturados() {
   const { setNombreApartado } = useAtributos();
@@ -23,8 +22,6 @@ export default function Manufacturados() {
     modalCategorias,
     unidadesMedida,
     modalUnidadesMedida,
-    getCategoriasRest,
-    getUnidadesMedidaRest,
   } = useAtributos();
 
   const sucursal = useAppSelector((state) => state.sucursal.selectedEntity);
@@ -70,6 +67,7 @@ export default function Manufacturados() {
   } else {
     console.log("categoriasX no es un array válido.");  // Mensaje de precaución si no es un array
   }
+
 
   return (
     <div className="m-3">

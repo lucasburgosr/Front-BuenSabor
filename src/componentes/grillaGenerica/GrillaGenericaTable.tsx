@@ -3,6 +3,7 @@ import Domicilio from "../../entidades/Domicilio";
 import { Button } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { useAppSelector } from "../../redux/hooks";
+import Imagen from "../../entidades/Imagen";
 
 export type GrillaGenericaTableProps<T> = {
   entidades: T[];
@@ -108,81 +109,86 @@ function GrillaGenericaTable<T extends Base>({
                 <tr key={entidadI.id}>
                   {keys.map((key, index) => (
                     <td
-                      style={{ backgroundColor: "#e0ebc2" }}
-                      key={index}
-                      hidden={[
-                        "id",
-                        "imagen",
-                        "imagenes",
-                        "articuloManufacturadoDetalles",
-                        "sucursales",
-                        "promocionDetalles",
-                        "type",
-                        "promociones",
-                      ].includes(String(key))}
-                    >
-                      {!["esParaElaborar", "casaMatriz"].includes(
-                        String(key)
-                      ) ? (
-                        !["domicilios", "pedidos"].includes(String(key)) ? (
+                    style={{ backgroundColor: "#e0ebc2" }}
+                    key={index}
+                    hidden={[
+                      "id",
+                      "eliminado",
+                      "articuloManufacturadoDetalles",
+                      "sucursales",
+                      "promocionDetalles",
+                      "type",
+                      "promociones",
+                    ].includes(String(key))}
+                  >
+                    {!["esParaElaborar", "casaMatriz"].includes(String(key)) ? (
+                      !["domicilios", "pedidos"].includes(String(key)) ? (
+                        key === "imagenes" ? (
+                          <div>
+                            {entidadI.imagenes.map((imagen : Imagen) => (
+                              <img
+                                key={imagen.id}
+                                src={imagen.url}
+                                alt={`Imagen de ${entidadI.denominacion}`}
+                                style={{ width: "100px", height: "100px" }}
+                              />
+                            ))}
+                          </div>
+                        ) : (
                           <div style={{ backgroundColor: "#e0ebc2" }}>
                             <b>
                               {typeof entidadI[key] === "object"
                                 ? entidadI[key]?.denominacion ||
                                   entidadI[key]?.nombre ||
-                                  entidadI[key]?.calle +
-                                    " " +
-                                    entidadI[key]?.numero
+                                  entidadI[key]?.calle + " " + entidadI[key]?.numero
                                 : typeof entidadI[key] === "number"
                                 ? entidadI[key].toLocaleString("es-AR")
                                 : entidadI[key]}
                             </b>
                           </div>
-                        ) : (
-                          <div style={{ backgroundColor: "#e0ebc2" }}>
-                            <a
-                              className="btn btn-dark"
-                              style={{ marginBottom: 10 }}
-                              onClick={() => {
-                                key === "pedidos"
-                                  ? openModalPedidos()
-                                  : openModalDomicilios(entidadI.domicilios);
-                              }}
-                            >
-                              {" "}
-                              {labels[index]}{" "}
-                            </a>
-                          </div>
                         )
                       ) : (
                         <div style={{ backgroundColor: "#e0ebc2" }}>
                           <a
-                            className={
-                              entidadI[key] ? "btn btn-success" : "btn btn-dark"
-                            }
-                            style={{
-                              width: "100px",
-                              marginBottom: "10px",
-                              backgroundColor: entidadI[key]
-                                ? "#a6c732"
-                                : "#e05151",
-                              color: "#ffffff", // Color del texto
-                              border: "none",
-                              padding: "5px 20px",
-                              borderRadius: "4px",
-                              textAlign: "center",
-                              textDecoration: "none",
-                              display: "inline-block",
-                            }}
+                            className="btn btn-dark"
+                            style={{ marginBottom: 10 }}
                             onClick={() => {
-                              cambiarBooleano(entidadI.id, String(key));
+                              key === "pedidos"
+                                ? openModalPedidos()
+                                : openModalDomicilios(entidadI.domicilios);
                             }}
                           >
-                            {entidadI[key] ? "Sí" : "No"}
+                            {" "}
+                            {labels[index]}{" "}
                           </a>
                         </div>
-                      )}
-                    </td>
+                      )
+                    ) : (
+                      <div style={{ backgroundColor: "#e0ebc2" }}>
+                        <a
+                          className={entidadI[key] ? "btn btn-success" : "btn btn-dark"}
+                          style={{
+                            width: "100px",
+                            marginBottom: "10px",
+                            backgroundColor: entidadI[key] ? "#a6c732" : "#e05151",
+                            color: "#ffffff", // Color del texto
+                            border: "none",
+                            padding: "5px 20px",
+                            borderRadius: "4px",
+                            textAlign: "center",
+                            textDecoration: "none",
+                            display: "inline-block",
+                          }}
+                          onClick={() => {
+                            cambiarBooleano(entidadI.id, String(key));
+                          }}
+                        >
+                          {entidadI[key] ? "Sí" : "No"}
+                        </a>
+                      </div>
+                    )}
+                  </td>
+                  
                   ))}
 
                   {canEdit && !sinEditar && (

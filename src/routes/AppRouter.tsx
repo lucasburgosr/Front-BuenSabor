@@ -12,6 +12,7 @@ import Empresas from "../screens/empresas/Empresas";
 import PrivateRoute from "../componentes/auth0/PrivateRoute";
 import Empleados from "../screens/empleados/Empleados";
 import CallbackPage from "../componentes/auth0/CallbackPage";
+import Pedidos from "../screens/pedidos/Pedidos";
 
 const AppRouter: React.FC = () => {
   return (
@@ -114,6 +115,15 @@ const AppRouter: React.FC = () => {
               element={
                 <PrivateRoute
                   component={UnidadMedida}
+                  allowedRoles={["SUPERADMIN", "ADMIN"]}
+                />
+              }
+            />
+            <Route
+              path="/pedidos"
+              element={
+                <PrivateRoute
+                  component={Pedidos}
                   allowedRoles={["SUPERADMIN", "ADMIN"]}
                 />
               }

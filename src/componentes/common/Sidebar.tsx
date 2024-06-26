@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   cilBalanceScale,
   cilBarChart,
@@ -18,17 +18,14 @@ import "@coreui/coreui/dist/css/coreui.min.css";
 import { cilDollar } from "@coreui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store/store";
-import { useAuth0 } from "@auth0/auth0-react";
 import Sucursal from "../../entidades/Sucursal";
 import { selectSucursal } from "../../redux/slices/slicesUnificados";
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const userRole = useSelector(
     (state: RootState) => state.empleado.selectedEntity.rol
   );
-  const isAuthenticated = useAuth0();
   const dispatch = useDispatch();
 
   const empresaSeleccionada = useSelector(

@@ -1,5 +1,6 @@
 import Base from "./Base";
 import Domicilio from "./Domicilio";
+import Empleado from "./Empleado";
 import Empresa from "./Empresa";
 import Promocion from "./Promocion";
 
@@ -11,7 +12,7 @@ export default class Sucursal extends Base {
   empresa: Empresa = new Empresa();
   promociones: Promocion[] = [];
   casaMatriz: boolean = false;
-  /* empleados: Empleado[] = []; */
+  empleados: Empleado[] = [];
 
   static nombre: string = "Sucursal";
   static labels: string[] = [
