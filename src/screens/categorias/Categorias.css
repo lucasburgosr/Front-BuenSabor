@@ -39,3 +39,7 @@
     user-select: none;
     text-align: center;
 }
+
+.no-arrow .accordion-button::after {
+    display: none;
+  }

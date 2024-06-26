@@ -4,7 +4,7 @@ import { useAtributos } from "../../hooks/useAtributos";
 import "./Categorias.css";
 import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store/store"; // Asegúrate de importar RootState
+import { RootState } from "../../redux/store/store";
 import SucursalService from "../../servicios/SucursalService";
 import CategoriaService from "../../servicios/CategoriaService";
 import { useAppSelector } from "../../redux/hooks";
@@ -40,10 +40,16 @@ function CategoriasForm() {
 
   const mostrarCategorias = (categoria: Categoria, padreId: number) => {
     const tieneHijos: boolean = categoria.subCategorias.length > 0;
+    const esCategoriaPadre = !categorias.some((categoriaPadre) =>
+      categoriaPadre.subCategorias.some(
+        (subcategoria) => subcategoria.id === categoria.id
+      )
+    );
+
     return (
       <div key={categoria.id} className="accordion-item">
         <h2
-          className="accordion-header d-flex flex-row"
+          className={`accordion-header d-flex flex-row ${tieneHijos ? '' : 'no-arrow'}`}
           id={"flush-heading" + categoria.id}
         >
           {tieneHijos ? (
@@ -55,32 +61,32 @@ function CategoriasForm() {
               aria-expanded="false"
               aria-controls={"flush-collapse" + categoria.id}
             >
-              {" "}
-              {categoria.denominacion}{" "}
+              {categoria.denominacion}
             </button>
           ) : (
             <div className="accordion-button accordion-no-arrow collapsed">
-              {" "}
-              {categoria.denominacion}{" "}
+              {categoria.denominacion}
             </div>
           )}
 
-          <Button
-            onClick={() => mostrarInput(categoria.id)}
-            sx={{
-              bgcolor: "#a6c732",
-              "&:hover": {
-                bgcolor: "#a0b750",
-              },
-              my: 3,
-              mx: 1,
-              width: "auto",
-              maxWidth: 200,
-            }}
-            variant="contained"
-          >
-            Crear
-          </Button>
+          {esCategoriaPadre && (
+            <Button
+              onClick={() => mostrarInput(categoria.id)}
+              sx={{
+                bgcolor: "#a6c732",
+                "&:hover": {
+                  bgcolor: "#a0b750",
+                },
+                my: 3,
+                mx: 1,
+                width: "auto",
+                maxWidth: 200,
+              }}
+              variant="contained"
+            >
+              Crear
+            </Button>
+          )}
 
           {userRol === "ADMIN" || userRol === "SUPERADMIN" ? (
             <>
