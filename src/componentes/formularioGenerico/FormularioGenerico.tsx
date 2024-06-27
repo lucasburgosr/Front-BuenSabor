@@ -34,7 +34,7 @@ function FormularioGenerico<T extends object>({ data, listaSelects = {}, onSubmi
       <form onSubmit={handleSubmit} className='container' >
         <div className='row'  >
           {keys.map((atributo, indice) =>
-            !['id', 'pedidos', 'esParaElaborar', 'type', 'sucursales', 'casaMatriz', 'eliminado'].includes(String(atributo)) && (
+            !['id', 'pedidos', 'esParaElaborar', 'type', 'sucursales', 'casaMatriz', 'eliminado', 'promocionDetalles', 'imagenes', 'usuario', 'imagen'].includes(String(atributo)) && (
               <div key={String(atributo)} className='mb-3' >
                 <label htmlFor={String(atributo)} className='form-label' style={{
                   fontFamily: 'Arial, sans-serif',

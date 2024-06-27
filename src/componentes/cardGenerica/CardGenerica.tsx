@@ -106,7 +106,7 @@ function CardGenerica<T extends Base>({
                 bgcolor: "#a0b750",
               },
               my: 3,
-              width: "5%",
+              width: "10%",
               height: "30%", // Ajustar la altura del botón
             }}
             variant="contained"

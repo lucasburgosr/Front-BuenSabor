@@ -66,6 +66,10 @@ function GrillaGenericaTable<T extends Base>({
                       "Tiene sucursales",
                       "Promociones",
                       "Categorías",
+                      "Stock actual",
+                      "Precio de costo",
+                      "Pedidos"
+                      
                     ].includes(label)}
                   >
                     <div style={{ fontWeight: "normal" }}>
@@ -121,7 +125,12 @@ function GrillaGenericaTable<T extends Base>({
                       "promociones",
                       "empleados",
                       "usuario",
-                      "imagen"
+                      "imagen",
+                      "stockActual",
+                      "precioCosto",
+                      "imagenesManufacturado",
+                      "stock",
+                      "pedidos"
                     ].includes(String(key))}
                   >
                     {!["esParaElaborar", "casaMatriz"].includes(String(key)) ? (
