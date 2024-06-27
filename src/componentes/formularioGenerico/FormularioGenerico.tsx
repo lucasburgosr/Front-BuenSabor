@@ -34,19 +34,18 @@ function FormularioGenerico<T extends object>({ data, listaSelects = {}, onSubmi
       <form onSubmit={handleSubmit} className='container' >
         <div className='row'  >
           {keys.map((atributo, indice) =>
-            !['id', 'pedidos', 'esParaElaborar', 'type', 'sucursales', 'casaMatriz'].includes(String(atributo)) && (
+            !['id', 'pedidos', 'esParaElaborar', 'type', 'sucursales', 'casaMatriz', 'eliminado'].includes(String(atributo)) && (
               <div key={String(atributo)} className='mb-3' >
                 <label htmlFor={String(atributo)} className='form-label' style={{
                   fontFamily: 'Arial, sans-serif',
                   fontSize: '26px',
                   display: 'block',   
                 }}>
-                  {(data as any).constructor.labels && (((data as any).constructor.labels as string[])[indice])}
+                  {data.constructor.labels ? data.constructor.labels[indice] : String(atributo)}
                 </label>
                 <InputRenderer key={String(atributo)} atributo={atributo} value={formData[atributo]} listaSelects={listaSelects} data={data} handleChange={handleChange} errors={errors}>
                 </InputRenderer>
               </div>
-
             )
           )}
         </div>

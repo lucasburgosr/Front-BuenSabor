@@ -7,7 +7,6 @@ import Domicilios from "../domicilios/Domicilios";
 import CargarImagen from "../imagenes/CargarImagen";
 import CargarImagenes from "../imagenes/CargarImagenes";
 import ManufacturadoCargarDetalles from "../manufacturadoCargarDetalles/ManufacturadoCargarDetalles";
-import PromocionCargarDetalles from "../promocionCargarDetalles/PromocionCargarDetalles";
 import SeleccionSucursales from "../seleccionSucursales/SeleccionSucursales";
 
 type InputRendererProps<T> = {
@@ -31,8 +30,6 @@ function InputRenderer<T>({ atributo, value, listaSelects, data, handleChange, e
       return <CargarImagenes imagenesPrevias={(data as ArticuloInsumo).imagenes} handleChange={handleChange} />;
     case 'articuloManufacturadoDetalles':
       return <ManufacturadoCargarDetalles detallesPrevios={(data as ArticuloManufacturado).articuloManufacturadoDetalles} handleChange={handleChange} />;
-    case 'promocionDetalles':
-      return <PromocionCargarDetalles detallesPrevios={(data as Promocion).promocionDetalles} handleChange={handleChange} />;
     case 'promocionesxxxxx':
       return <SeleccionSucursales sucursalesPrevias={(data as Promocion).sucursales} handleChange={handleChange} />;
     case 'domicilio':
@@ -126,4 +123,3 @@ function InputRenderer<T>({ atributo, value, listaSelects, data, handleChange, e
 };
 
 export default InputRenderer;
-

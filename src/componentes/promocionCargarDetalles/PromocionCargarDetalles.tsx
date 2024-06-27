@@ -42,7 +42,7 @@ function PromocionCargarDetalles({ detallesPrevios, handleChange }: DetallesProm
         articulo.type = articulo instanceof ArticuloInsumo ? 'insumo' : 'manufacturado';
         detalle.articulo = articulo;
         detalle.cantidad = cantidad;
-        setDetalles( [...detalles.filter(detalle => {return detalle.articulo.id !== articulo.id}), detalle] );
+        setDetalles( [...detalles.filter(detalle => {return detalle.articulo?.id !== articulo.id}), detalle] );
 
         setCantidad(0);
         setSelectedArticulo("0");
@@ -113,9 +113,9 @@ function PromocionCargarDetalles({ detallesPrevios, handleChange }: DetallesProm
             <tbody>
             {detalles.map((detalle, index) => (
                 <tr  key={index}>
-                    <td style={{width:"60%",backgroundColor:'#eaf1d5'}}>{detalle.articulo.denominacion}</td>
+                    <td style={{width:"60%",backgroundColor:'#eaf1d5'}}>{detalle.articulo?.denominacion}</td>
                     <td style={{width:"5%", textAlign:'center',backgroundColor:'#eaf1d5'}}>{detalle.cantidad}</td>
-                    <td style={{width:"10%", textAlign:'center',backgroundColor:'#eaf1d5'}}>{detalle.articulo.unidadMedida.denominacion}</td>
+                    <td style={{width:"10%", textAlign:'center',backgroundColor:'#eaf1d5'}}>{detalle.articulo?.unidadMedida.denominacion}</td>
                     <td style={{width:"25%", textAlign:'center',backgroundColor:'#eaf1d5'}}><a className="btn btn-danger mb-0"  style={{textAlign: "center", backgroundColor: "#dd5555" ,marginBottom:10,color:'white', padding: '10px'}} onClick={() => deleteDetalle(index)}>Eliminar</a></td>
                 </tr>
             ))}
