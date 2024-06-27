@@ -10,5 +10,5 @@ export default class ArticuloManufacturado extends Articulo {
     precioCosto:number = 0;
 
     static nombre:string = "Artículo Manufacturado";
-    static labels = [ "Imágenes", "Denominación", "Precio de venta", "Unidad de medida", "Categoría", "Descripción", "Tiempo estimado", "Preparación", "Stock actual", "Precio de costo"];
+    static labels = [ "Denominación", "Precio de venta", "Imágenes", "Unidad de medida", "Categoría", "Descripción", "Tiempo estimado", "Preparación", "Stock actual", "Precio de costo"];
 }
