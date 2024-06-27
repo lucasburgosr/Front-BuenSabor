@@ -1,27 +1,32 @@
+import { useState } from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material";
 import Pedido from "../../entidades/Pedido";
 import { useAppSelector } from "../../redux/hooks";
+import PedidoModal from "./pedidoModal";
 
 interface TablePedidosProps {
     data: Pedido[];
-    openModalPedidos: () => void;
-    openModalDomicilios: (domicilios: any[]) => void; // Ajusta el tipo según sea necesario
-    cambiarBooleano: (value: number, atributo: string) => void;
-    handleOpenModal: (id: number) => void;
+    handleUpdate: (pedido: Pedido) => void;
     deleteEntidad: (id: number) => void;
 }
 
 export default function TablePedidos({
     data,
-    openModalPedidos,
-    openModalDomicilios,
-    cambiarBooleano,
-    handleOpenModal,
-    deleteEntidad,
+    handleUpdate,
 }: TablePedidosProps) {
     const empleado = useAppSelector((state) => state.empleado.selectedEntity);
     const userRole = empleado.rol;
     const canEdit = ["ADMIN", "SUPERADMIN"].includes(userRole);
+
+    const [open, setOpen] = useState(false);
+    const [selectedPedido, setSelectedPedido] = useState<Pedido | null>(null);
+
+    const handleClose = () => setOpen(false);
+
+    const handleOpen = (pedido: Pedido) => {
+        setSelectedPedido(pedido);
+        setOpen(true);
+    };
 
     return (
         <TableContainer component={Paper} sx={{ boxShadow: "5px 10px 2px rgba(0, 0, 0, 0.3)" }}>
@@ -37,7 +42,6 @@ export default function TablePedidos({
                         <TableCell>Estado</TableCell>
                         <TableCell>Total</TableCell>
                         {canEdit && <TableCell>Modificar</TableCell>}
-                        {canEdit && <TableCell>Eliminar</TableCell>}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -60,31 +64,26 @@ export default function TablePedidos({
                                             color: "#ffffff",
                                             fontWeight: "bold",
                                         }}
-                                        onClick={() => handleOpenModal(pedido.id)}
+                                        onClick={() => handleOpen(pedido)}
                                     >
                                         MODIFICAR
                                     </Button>
                                 </TableCell>
                             )}
-                            {canEdit && (
-                                <TableCell>
-                                    <Button
-                                        variant="contained"
-                                        sx={{
-                                            backgroundColor: "#e05151",
-                                            color: "#ffffff",
-                                            fontWeight: "bold",
-                                        }}
-                                        onClick={() => deleteEntidad(pedido.id)}
-                                    >
-                                        ELIMINAR
-                                    </Button>
-                                </TableCell>
-                            )}
+                            
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
+
+            {selectedPedido && (
+                <PedidoModal
+                    open={open}
+                    handleClose={handleClose}
+                    pedido={selectedPedido}
+                    handleUpdate={handleUpdate}
+                />
+            )}
         </TableContainer>
     );
 }

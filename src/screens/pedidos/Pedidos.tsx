@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import Pedido from "../../entidades/Pedido";
 import PedidoService from "../../servicios/PedidoService";
-import { Typography } from "@mui/material";
-import Domicilio from "../../entidades/Domicilio";
 import TablePedidos from "./TablePedidos";
+import { Typography } from "@mui/material";
+
 
 export default function Pedidos() {
     const [data, setData] = useState<Pedido[]>([]);
-    const urlapi = import.meta.env.VITE_API_URL;
-    const pedidoService = new PedidoService(urlapi + "/pedidos");
+    const pedidoService = new PedidoService();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,24 +18,15 @@ export default function Pedidos() {
         fetchData();
     }, []);
 
-    const openModalPedidos = () => {
-        // Lógica para abrir modal de pedidos
+    const handleUpdate = (updatedPedido: Pedido) => {
+        setData((prevData) => prevData.map(pedido => 
+            pedido.id === updatedPedido.id ? updatedPedido : pedido
+        ));
     };
 
-    const openModalDomicilios = (domicilios: Domicilio[]) => {
-        // Lógica para abrir modal de domicilios
-    };
-
-    const cambiarBooleano = (value: number, atributo: string) => {
-        // Lógica para cambiar atributo booleano
-    };
-
-    const handleOpenModal = (id: number) => {
-        // Lógica para abrir modal de modificación
-    };
-
-    const deleteEntidad = (id: number) => {
-        // Lógica para eliminar entidad
+    const deleteEntidad = async (id: number) => {
+        await pedidoService.delete(id);
+        setData((prevData) => prevData.filter(pedido => pedido.id !== id));
     };
 
     return (
@@ -46,10 +36,7 @@ export default function Pedidos() {
             </Typography>
             <TablePedidos 
                 data={data}
-                openModalPedidos={openModalPedidos}
-                openModalDomicilios={openModalDomicilios}
-                cambiarBooleano={cambiarBooleano}
-                handleOpenModal={handleOpenModal}
+                handleUpdate={handleUpdate}
                 deleteEntidad={deleteEntidad}
             />
         </div>
