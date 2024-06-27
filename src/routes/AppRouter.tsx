@@ -55,7 +55,7 @@ const AppRouter: React.FC = () => {
               element={
                 <PrivateRoute
                   component={Manufacturados}
-                  allowedRoles={["SUPERADMIN", "ADMIN", "COCINERO", "CAJERO"]}
+                  allowedRoles={["SUPERADMIN", "ADMIN", "COCINERO"]}
                 />
               }
             />
@@ -64,7 +64,7 @@ const AppRouter: React.FC = () => {
               element={
                 <PrivateRoute
                   component={Insumo}
-                  allowedRoles={["SUPERADMIN", "ADMIN", "COCINERO", "CAJERO"]}
+                  allowedRoles={["SUPERADMIN", "ADMIN", "COCINERO"]}
                 />
               }
             />
@@ -82,7 +82,7 @@ const AppRouter: React.FC = () => {
               element={
                 <PrivateRoute
                   component={Promocion}
-                  allowedRoles={["SUPERADMIN", "ADMIN"]}
+                  allowedRoles={["SUPERADMIN", "ADMIN", "CAJERO"]}
                 />
               }
             />
@@ -124,7 +124,7 @@ const AppRouter: React.FC = () => {
               element={
                 <PrivateRoute
                   component={Pedidos}
-                  allowedRoles={["SUPERADMIN", "ADMIN"]}
+                  allowedRoles={["SUPERADMIN", "ADMIN", "COCINERO", "CAJERO", "DELIVERY"]}
                 />
               }
             />

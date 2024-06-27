@@ -86,8 +86,7 @@ const Sidebar: React.FC = () => {
               </CNavItem>
             )}
           {(userRole === "SUPERADMIN" ||
-            userRole === "ADMIN" ||
-            userRole === "CAJERO") && (
+            userRole === "ADMIN") && (
             <CNavItem>
               <Link to={`/inicio`} className="nav-link">
                 <CIcon customClassName="nav-icon" icon={cilBarChart} />
@@ -131,8 +130,7 @@ const Sidebar: React.FC = () => {
           )}
           {(userRole === "SUPERADMIN" ||
             userRole === "ADMIN" ||
-            userRole === "COCINERO" ||
-            userRole === "CAJERO") && (
+            userRole === "COCINERO") && (
             <CNavGroup
               toggler={
                 <>

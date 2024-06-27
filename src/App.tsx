@@ -7,6 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import EmpleadoService from "./servicios/EmpleadoService";
 import {
   selectEmpleado,
+  selectSucursal,
 } from "./redux/slices/slicesUnificados";
 import { callApi } from "./componentes/auth0/callApi";
 
@@ -48,6 +49,9 @@ const App: React.FC = () => {
         if (empleado) {
           console.log("Empleado encontrado:", empleado);
           dispatch(selectEmpleado(empleado));
+          if(empleado.rol === "COCINERO") {
+            dispatch(selectSucursal(empleado.sucursal));
+          }
         }
       } catch (error) {
         console.error("Error en la aplicación:", error);

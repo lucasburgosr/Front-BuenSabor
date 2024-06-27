@@ -9,8 +9,10 @@ const CallbackPage = () => {
   const empleado = useAppSelector((state) => state.empleado.selectedEntity);
 
   useEffect(() => {
-    if (isAuthenticated && user && empleado.rol !== "SUPERADMIN" && empleado.rol !== "ADMIN") {
-      navigate('/inicio');
+    if (isAuthenticated && user && empleado.rol === "SUPERADMIN" && empleado.rol === "ADMIN") {
+      navigate('/');
+    } else if(isAuthenticated && user && (empleado.rol === "COCINERO" || empleado.rol === "CAJERO" || empleado.rol === "DELIVERY")) {
+      navigate('/pedidos')
     } else {
       navigate('/');
     }
