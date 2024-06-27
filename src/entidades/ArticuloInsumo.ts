@@ -8,5 +8,7 @@ export default class ArticuloInsumo extends Articulo {
     esParaElaborar:boolean = false;
 
     static nombre:string = "Artículo Insumo";
-    static labels:string[] = ["Id", "Denominación", "Categoría", "Stock actual", "Stock mínimo", "Stock máximo", "Precio de compra", "Precio de venta", "Unidad de Medida", "Imágenes", "Es Para Elaborar"];
+    static labels:string[] = ["Id", "Imágenes", "Denominación", "Precio de venta", "Unidad de medida", "Categoría", "Stock actual", "Stock mínimo", "Stock máximo", "Precio de compra", "Es Para Elaborar"];
+    //    static labels:string[] = ["Id", "Imágenes", "Denominación", "Precio", "Stock mínimo", "Stock máximo", "Precio de compra", "Precio de venta", "Unidad de Medida", "Imágenes", "Es Para Elaborar"];
+
 }

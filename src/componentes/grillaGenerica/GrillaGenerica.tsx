@@ -90,12 +90,23 @@ function GrillaGenerica<T extends Base>({
     setSearchTerm(event.target.value);
   };
 
-  const searchKey =
-    (entidad as any).denominacion !== undefined ? "denominacion" : "nombre";
+  const searchKey = "denominacion";
 
-  const filteredEntidades = entidades.filter((entidad) =>
-    (entidad as any)[searchKey].toLowerCase().includes(searchTerm.toLowerCase())
-  );
+const filteredEntidades = entidades.filter((entidad) => {
+  const value = (entidad as any)[searchKey];
+  
+  // Logging the value for debugging purposes
+  console.log("Entidad:", entidad);
+  console.log("Value:", value);
+  
+  // Ensure value is a string before calling toLowerCase
+  if (typeof value === 'string') {
+    return value.toLowerCase().includes(searchTerm.toLowerCase());
+  } else {
+    console.warn(`Entidad with id ${entidad.id} has an invalid ${searchKey}:`, value);
+    return false;
+  }
+});
 
   return (
     <>
