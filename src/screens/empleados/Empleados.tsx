@@ -12,8 +12,8 @@ export default function Empleados() {
   const empleadoBase = new Empleado();
   const { sucursales, modalSucursales, getSucursalesRest } = useAtributos();
 
-  const empresaSeleccionada = useSelector(
-    (state: RootState) => state.empresa.selectedEntity // Asegúrate de que la ruta sea correcta
+  const sucursalSeleccionada = useSelector(
+    (state: RootState) => state.sucursal.selectedEntity // Asegúrate de que la ruta sea correcta
   );
 
   useEffect(() => {
@@ -21,11 +21,12 @@ export default function Empleados() {
     setNombreApartado("Empleados");
   });
 
-  if (!empresaSeleccionada) {
+  if (!sucursalSeleccionada) {
     return <div>Selecciona una empresa para ver las sucursales.</div>;
   }
 
-  const empleados = empresaSeleccionada.sucursales.empleados;
+  const empleados = sucursalSeleccionada.empleados;
+  console.log(empleados)
 
   /* const roles = Object.values(Rol)
     .splice(0, Object.values(Rol).length / 2)

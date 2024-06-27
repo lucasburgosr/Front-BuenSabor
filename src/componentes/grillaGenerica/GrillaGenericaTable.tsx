@@ -119,7 +119,9 @@ function GrillaGenericaTable<T extends Base>({
                       "promocionDetalles",
                       "type",
                       "promociones",
-                      "empleados"
+                      "empleados",
+                      "usuario",
+                      "imagen"
                     ].includes(String(key))}
                   >
                     {!["esParaElaborar", "casaMatriz"].includes(String(key)) ? (

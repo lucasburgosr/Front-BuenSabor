@@ -106,6 +106,20 @@ const Sidebar: React.FC = () => {
                 Sucursales
               </Link>
             </CNavItem>
+            
+          )}
+          {(userRole === "SUPERADMIN" ||
+            userRole === "ADMIN" ||
+            userRole === "DELIVERY" ||
+            userRole === "COCINERO" ||
+            userRole === "CAJERO") && (
+            <CNavItem>
+              <Link to={`/pedidos`} className="nav-link">
+                <CIcon customClassName="nav-icon" icon={cilFastfood} />
+                Pedidos
+              </Link>
+            </CNavItem>
+            
           )}
           {(userRole === "SUPERADMIN" || userRole === "ADMIN") && (
             <CNavItem>

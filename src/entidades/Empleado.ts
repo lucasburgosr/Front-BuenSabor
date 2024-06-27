@@ -17,5 +17,5 @@ export default class Empleado extends Base {
     sucursal:Sucursal = new Sucursal();
     
     static nombre:string = "Empleado";
-    static labels:string[] = ["Id", "Rol", "Pedidos", "Nombre", "Apellido", "Teléfono", "Email", "Fecha de nacimiento", "Imagen", "Sucursal"];
+    static labels:string[] = ["Id", "Rol", "Pedidos", "Nombre", "Apellido", "Teléfono", "Email", "Fecha de nacimiento", "Sucursal"];
 }
